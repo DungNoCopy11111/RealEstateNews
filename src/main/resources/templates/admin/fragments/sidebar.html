@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="sidebar">
+        <aside id="sidebar" class="sidebar">
+            <ul class="sidebar-nav" id="sidebar-nav">
+                <li class="nav-item">
+                    <a th:href="@{/admin}" class="nav-link">
+                        <i class="bi bi-grid"></i>
+                        <span>Tổng quan</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-people"></i><span>Quản lý người dùng</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="">
+                                <i class="bi bi-circle"></i><span>Admin</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a th:href="@{/admin/list-user}">
+                                <i class="bi bi-circle"></i><span>Users</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="bi bi-circle"></i><span>Agent</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="bi bi-circle"></i><span>Builder</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Components Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-journal-text"></i><span>Quản lý tin đăng</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="">
+                                <i class="bi bi-circle"></i><span>Quản lý tin đăng</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="bi bi-circle"></i><span>City</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Forms Nav -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-layout-text-window-reverse"></i>
+                        <span>Quản lý danh mục</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="">
+                                <i class="bi bi-circle"></i><span>Add Property</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="bi bi-circle"></i><span>View Property</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Tables Nav -->
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+                        <i class="bi bi-chat"></i><span>Quản lý gói tin</span><i class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="">
+                                <i class="bi bi-circle"></i><span>Contact</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="bi bi-circle"></i><span>Feedback</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End Charts Nav -->
+
+
+                <!-- Add other menu items here -->
+
+            </ul>
+        </aside>
+    </div>
+</body>
+</html>

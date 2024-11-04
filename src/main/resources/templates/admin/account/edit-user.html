@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/base}">
+<body>
+<div layout:fragment="content">
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Chỉnh sửa thông tin người dùng</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="users.html">Users</a></li>
+                    <li class="breadcrumb-item active">Edit User</li>
+                </ol>
+            </nav>
+        </div>
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Thông tin chi tiết</h5>
+
+                            <!-- Custom Styled Validation -->
+<!--                            method="POST" th:action="@{/admin/edit/{id}(id=${userEd.id})}"-->
+                            <form class="row g-3 needs-validation" novalidate method="POST" th:action="@{/admin/edit/{id}(id=${userEd.id})}">
+
+                                <div class="col-md-6">
+                                    <label for="userId" class="form-label">ID</label>
+                                    <input type="text" class="form-control" id="userId" name="id" th:value="${userEd.id}" disabled>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="validationCustom04" class="form-label">Trạng thái</label>
+                                    <select class="form-select" id="validationCustom04" required name="status">
+                                        <option th:value = 1 th:selected="${userEd.status == 1}">Hoạt động</option>
+                                        <option th:value = 0 th:selected="${userEd.status == 0}">Bị khóa</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label for="validationCustom01" class="form-label">Họ và tên</label>
+                                    <input type="text" class="form-control" id="validationCustom01" name="fullName" th:value="${userEd.fullName}" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="validationCustom02" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="validationCustom02" name="email" th:value="${userEd.email}" required>
+                                    <div class="valid-feedback">
+                                        Looks good!
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="validationCustom03" class="form-label">Số điện thoại</label>
+                                    <input type="tel" class="form-control" id="validationCustom03" name="phoneNumber" th:value="${userEd.phoneNumber}" required>
+                                    <div class="invalid-feedback">
+                                        Please provide a valid phone number.
+                                    </div>
+                                </div>
+
+                                <!-- Thêm trường Giới tính -->
+                                <div class="col-md-6">
+                                    <label class="form-label">Giới tính</label>
+                                    <div class="d-flex gap-4 pt-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender" id="genderMale" value="MALE" th:checked="${userEd.gender == 'MALE'}">
+                                            <label class="form-check-label" for="genderMale">Nam</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="FEMALE" th:checked="${userEd.gender == 'FEMALE'}">
+                                            <label class="form-check-label" for="genderFemale">Nữ</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender" id="genderOther" value="OTHER">
+                                            <label class="form-check-label" for="genderOther">
+                                                Khác
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Thêm trường Địa chỉ -->
+                                <div class="col-12">
+                                    <label for="address" class="form-label">Địa chỉ</label>
+                                    <textarea class="form-control" id="address" rows="3" name="address" required th:text="${userEd.address}"></textarea>
+                                    <div class="invalid-feedback">Vui lòng nhập địa chỉ.</div>
+                                </div>
+
+                                <input type="hidden" name="username" th:value="${userEd.username}">
+                                <input type="hidden" name="password" th:value="${userEd.password}">
+                                <input type="hidden" name="update_at" th:value="${userEd.updatedAt}">
+
+                                <div class="col-12 text-center">
+                                    <button class="btn btn-primary me-2" type="submit">Lưu thay đổi</button>
+                                    <button class="btn btn-secondary" type="button" onclick="history.back()">Quay lại</button>
+                                </div>
+                            </form><!-- End Custom Styled Validation -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+</div>
+</body>
+</html>

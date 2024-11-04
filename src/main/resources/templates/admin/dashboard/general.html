@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+<body>
+    <div th:fragment="content">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">Welcome Admin!</h3>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Card 1 -->
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="dash-widget-icon" style="font-size: 3rem;">
+                                <i class="bi bi-people"></i>
+                            </span>
+                        </div>
+                        <div class="dash-widget-info">
+                            <h3 th:text="${userCount}"></h3>
+                            <h6 class="text-muted">Registered Users</h6>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-primary" th:style="'width: ' + ${percentage} + '%'"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="dash-widget-header">
+                            <span class="dash-widget-icon" style="font-size: 3rem;">
+                                <i class="bi bi-people-fill"></i>
+                            </span>
+                        </div>
+                        <div class="dash-widget-info">
+                            <h3 th:text="${staffCount}"></h3>
+                            <h6 class="text-muted">Staffs</h6>
+                            <div class="progress progress-sm">
+                                <div class="progress-bar bg-primary" th:style="'width: ' + ${percentage} + '%'"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
