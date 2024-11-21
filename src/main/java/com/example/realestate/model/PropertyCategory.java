@@ -24,5 +24,4 @@ public class PropertyCategory extends Base {
     @Column(name = "icon_url")
     private String iconUrl;
 
-
 }

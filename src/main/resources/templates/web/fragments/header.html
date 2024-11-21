@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+</head>
+<body>
+<div th:fragment="header">
+    <header class="header" >
+        <!-- Header Inner -->
+        <div class="header-inner">
+            <div class="container">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-lg-2 col-12 logo_left">
+                            <!-- Start Logo -->
+                            <div class="logo">
+                                <a href="./home.html"><img class="logo_header" src="https://staticfile.batdongsan.com.vn/images/logo/standard/red/logo.svg" alt="#"></a>
+                            </div>
+
+                            <!-- End Logo -->
+                            <div class="mobile-nav"></div>
+                        </div>
+                        <div class="col-lg-7 col-12">
+                            <!-- Main Menu -->
+                            <div class="main-menu">
+                                <nav class="navigation">
+                                    <ul class="nav menu">
+                                        <li><a th:href="@{/home}">Trang Chủ</a></li>
+                                        <li><a th:href="@{/nha-dat-ban}">Nhà đất bán</a></li>
+                                        <li><a th:href="@{/nha-dat-thue}">Nhà đất thuê</a></li>
+                                        <li><a href="#">Phân tích đánh giá<i class="icofont-rounded-down"></i></a>
+                                        </li>
+                                        <li><a href="#">Danh bạ<i class="icofont-rounded-down"></i></a>
+                                            <ul class="dropdown">
+                                                <li><a th:href="@{/blog-single.html}">Blog Details</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <!--/ End Main Menu -->
+                        </div>
+                        <div class="col-lg-3 col-12 end_header">
+                            <div class="get-quote header_right">
+                                <a th:href="@{/}" class="btn right_btn">Đăng tin</a>
+                                <a th:href="@{/login}" class="btn right_btn">Đăng nhập</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/ End Header Inner -->
+    </header>
+</div>
+</body>
+</html>

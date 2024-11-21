@@ -1,0 +1,353 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.main{
+    margin-top: 80px;
+}
+.search_bar{
+    position: relative;
+    margin: 0 20%;
+    padding: 10px 13px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.re_search_bar{
+    margin-left: -3px;
+}
+.search_kind{
+    display: flex;
+    padding-top: 3px;
+}
+.search_true {
+    padding: 9px 20px;
+    background-color: rgba(0, 0, 0, 0.1); /* Màu nền mặc định cho các mục chưa được chọn */
+    color: #333; /* Màu chữ mặc định */
+    border-radius: 10px 10px 0px 0px;
+    margin: 0 3px;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Hiệu ứng chuyển đổi màu */
+}
+
+.search_true.active {
+    background-color: #f0f0f0; /* Màu xám cho mục đã được chọn */
+    /* color: white; */
+}
+
+.search_true.active:hover {
+    background-color: #f0f0f0;
+    color: white;
+}
+
+.search_true:hover {
+    background-color: #f0f0f0;
+    /* color: white; */
+    cursor: pointer;
+}
+
+/* Khi hover vào mục Nhà đất cho thuê, thì Nhà đất bán mất màu */
+.search_true:hover /*+ .search_true*/,
+.search_true.active:hover {
+    background-color: #f0f0f0; /* Trả lại màu nền khi hover mục còn lại */
+    color: #333;
+}
+
+
+.kinds{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 3px;
+}
+
+.kind {
+    position: relative;
+    width: 32%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #fff;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.kind_text{
+    color: #fff;
+}
+
+.kind:hover {
+    border-color: #999;
+    cursor: pointer;
+}
+
+.kind_show{
+    display: flex;
+}
+
+.kind_text{
+    margin-left: 4px;
+}
+
+.kind_right{
+    /* position: absolute;
+    right: 0;
+    cursor: pointer; */
+    margin-bottom: 5px;
+    color: #f0f0f0;
+    margin-top: 6px;
+    margin-right: 2px;
+    transition: transform 0.3s ease; /* Thêm hiệu ứng chuyển động */
+    transform-origin: center; /* Xác định điểm gốc của việc xoay */
+}
+
+._kind_show{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.kind_right.active {
+    transform: rotate(180deg);
+}
+.hidden {
+    display: none;
+}
+.kind_mini{
+    position: absolute;
+    /* display: block; */
+    /* padding: 10px; */
+    background-color: #fff;
+    color: #333;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    top: 54px;
+    width: 100%;
+    left: 0px;
+    /* margin-right: 2px; */
+    min-width: 300;
+}
+
+.kind_mini_top{
+    margin: 8px;
+}
+
+._kind_mini_top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* position: relative; */
+}
+
+.kind_mini_text{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+}
+
+#close_kind_mini{
+    opacity: 0.5;
+    font-weight: bold;
+    margin-right: 3px;
+}
+
+#close_kind_mini:hover{
+    color: black;
+    opacity: 1;
+}
+
+._kind_mini_text{
+    font-weight: bold;
+}
+
+.line_mini_top{
+    height: 0.5px;
+    width: calc(100% + 16px);
+    background-color: #333;
+    margin: 10px 0;
+    margin-left: -8px;
+    cursor: default;
+}
+
+.kind_space_1{
+    margin-left: 10%;
+}
+
+.kind_space_2{
+    margin-left: 10%;
+}
+
+.kind_space_3{
+    margin-left: 8%;
+}
+
+.kind_mini_3{
+    right: 0;
+    left: auto !important;
+}
+
+.line_mini_bottom{
+    height: 0.5px;
+    width: 100%;
+    background-color: #333;
+    margin: 12px 0 10px 0;
+    margin-top: 5px;
+    cursor: default;
+}
+
+.ul_mini_content{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+
+.li_mini_content{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.li_mini_content:hover{
+    background-color: #f0f0f0;
+}
+
+.kind_mini_text_1, .kind_mini_text_2, .kind_mini_text_3{
+    margin-left: 10px;
+}
+
+.check_true{
+    margin-right: 10px;
+}
+
+.kind_mini_bottom{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 0 1px;
+}
+
+.mini_bottom_left{
+    padding: 9px 13px;
+    background-color: #fff;
+    font-weight: 600;
+    border: none;
+    border-radius: 4px;
+    letter-spacing: 0.2px;
+}
+
+.mini_bottom_left:hover{
+    background-color: #f0f0f0;
+}
+
+.mini_bottom_right{
+    background: #E03C31;
+    border: solid 1px #E03C31;
+    padding: 9px 11px;
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.mini_bottom_right:hover{
+    opacity: 0.5;
+}
+
+.footer{
+    margin-top: 60px;
+}
+
+.input-box:hover{
+    cursor: pointer;
+}
+
+.show_all{
+    display: none;
+  }
+
+  #true_province_{
+    cursor: pointer;
+  }
+
+.show_all{
+    margin: 20px 0;
+  }
+  
+  .header_show{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .show_all{
+    height: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+  }
+  
+  .show_hr{
+    border: none; /* Loại bỏ viền mặc định */
+    height: 1px; /* Độ dày của đường kẻ */
+    background-color: #333; /* Màu sắc của đường kẻ */
+    margin-top: 20px;
+    /* margin-bottom: 10px; */
+    margin-left: -20px;
+    height: 0.5px !important;
+    margin-right: -20px;
+  }
+  
+  .grid-container {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-template-rows: repeat(11, 1fr);
+      row-gap: 4px;
+      column-gap: 16px;
+      height: 310px;
+      margin-top: 8px;
+      color: #2C2C2C;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      margin-right: -10px;
+  }
+  
+  .grid-item {
+    padding: 4px 6px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .grid-item:hover{
+    /* color: blue; */
+    background-color: #f6f6f6;
+  }
+  #close-menu:hover{
+    cursor: pointer;
+    color: #2C2C2C;
+  }
+
+.header_show .left{
+    font-weight: bold;
+    color: black;
+    margin-left: 5px;
+    /* font-family: "Lexend Medium", Roboto, Arial !important; */
+}
+
+._first{
+    font-size: 18px;
+}
+
+.kind_img{
+    width: 30px;
+    height: 30px;
+    background-color: #f0f0f0;
+}
+
+.li_mini_content label{
+    margin-bottom: 0px;
+    width: 100%;
+}
+.li_mini_content label:hover{
+    cursor: pointer;
+}

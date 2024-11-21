@@ -329,3 +329,24 @@ Version:	1.1
 	
 	
 })(jQuery);
+
+
+$('.high_rating_owl').owlCarousel({
+    loop:false,
+    margin:20,
+    nav:true,
+	slideBy:4,
+	navText:['<i class="fa-solid fa-angle-left"></i>','<i class="fa-solid fa-angle-right"></i>'],
+	dots: false,
+    responsive:{
+        0:{
+            items:1
+        },
+        451:{
+            items:2
+        },
+        781:{
+            items:4
+        }
+    }
+})

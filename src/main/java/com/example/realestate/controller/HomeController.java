@@ -1,19 +1,13 @@
 package com.example.realestate.controller;
 
-import com.example.realestate.model.User;
 import com.example.realestate.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
@@ -22,8 +16,9 @@ public class HomeController {
     @Autowired
     private UserRepository userRepository;
     @GetMapping("/home")
-    public String home(){
-        return "web/home";
+    public String home( @RequestParam(name = "layout",defaultValue = "web/home") String layout, Model model ){
+        model.addAttribute("layout",layout);
+        return "web/index";
     }
 //    @GetMapping("/admin")
 //    public String admin(Model model,
@@ -53,5 +48,12 @@ public class HomeController {
     public String showRegister(){
         return "login/pages-register";
     }
-
+    @GetMapping("/nha-dat-ban")
+    public String showNhaDatBan(){
+        return "web/nhadatban";
+    }
+    @GetMapping("/nha-dat-thue")
+    public String showNhaDatThue(){
+        return "web/nhadatthue";
+    }
 }
