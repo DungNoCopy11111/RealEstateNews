@@ -1,10 +1,12 @@
 package com.example.realestate.dtos.dto;
 
-import com.example.realestate.emums.PropertyDirection;
-import com.example.realestate.emums.PropertyType;
+import com.example.realestate.enums.PropertyDirection;
+import com.example.realestate.enums.PropertyType;
+import com.example.realestate.model.PropertyImage;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
@@ -31,4 +33,9 @@ public class PropertyDTO {
     private String userPost;
     private String userEmail;
     private String userPhone;
+    private String address;
+    private String city;
+    private String district;
+    private String ward;
+    private List<PropertyImage> images;
 }

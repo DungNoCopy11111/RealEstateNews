@@ -39,6 +39,9 @@ public class AdminController {
     private TransactionService transactionService;
 
     @Autowired
+    private PropertyConverter propertyConverter;
+
+    @Autowired
     private UserService userService;
     @GetMapping("")
     public String admin(Model model,
@@ -114,7 +117,8 @@ public class AdminController {
 
     @GetMapping("/property/{id}")
     public ResponseEntity<PropertyDTO> getPropertyDetails(@PathVariable Long id){
-        PropertyDTO propertyDTO = PropertyConverter.toDTO(propertyService.getPropertyById(id));
+        Property property = propertyService.getPropertyById(id);
+        PropertyDTO propertyDTO = propertyConverter.toDTO(property);
         log.info("get property details");
         return ResponseEntity.ok(propertyDTO);
     }

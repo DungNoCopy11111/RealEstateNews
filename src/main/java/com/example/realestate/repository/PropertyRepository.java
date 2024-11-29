@@ -1,12 +1,51 @@
 package com.example.realestate.repository;
 
+import com.example.realestate.enums.PropertyType;
 import com.example.realestate.model.Property;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Long> {
     List<Property> findTop10ByOrderByCreatedAtDesc();
+    @Query("SELECT p FROM Property p WHERE p.status = 1")
+    List<Property> findAllActiveProperties();
+
+    @Query("SELECT p FROM Property p WHERE p.propertyType = 'SALE'")
+    List<Property> findSalesProperties();
+
+    @Query("SELECT p FROM Property p WHERE p.propertyType = 'RENT'")
+    List<Property> findRentProperties();
+
+
+
+    @Query("SELECT COUNT(p) FROM Property p WHERE p.user.id = :userId")
+    Long countByUserId(@Param("userId") Long userId);
+
+    @Query("SELECT p FROM Property p WHERE " +
+            "(:city is null or p.city = :city) AND " +
+            "(:propertyType is null or p.propertyType = :propertyType) AND " +
+            "(:minPrice is null or p.price >= :minPrice) AND " +
+            "(:maxPrice is null or p.price <= :maxPrice) AND " +
+            "(:minArea is null or p.area >= :minArea) AND " +
+            "(:maxArea is null or p.area <= :maxArea)")
+    List<Property> searchProperties(
+            @Param("city") String city,
+            @Param("propertyType") PropertyType propertyType,
+            @Param("minPrice") Double minPrice,
+            @Param("maxPrice") Double maxPrice,
+            @Param("minArea") Double minArea,
+            @Param("maxArea") Double maxArea
+    );
+
+    @Query("SELECT p FROM Property p WHERE p.status = 1 ORDER BY p.createdAt DESC")
+    List<Property> findAllActivePropertiesOrderByCreatedDateDesc(Pageable pageable);
+
+    List<Property> findByStatusOrderByCreatedAtDesc(Long status, Pageable pageable);
+
 }

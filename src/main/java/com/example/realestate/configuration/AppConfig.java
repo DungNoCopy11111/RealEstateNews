@@ -66,8 +66,11 @@ public class AppConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/admin/**","/web/**").permitAll()
+                        .requestMatchers("/property/search/").permitAll()
                         .requestMatchers("/login","/home", "/register", "/public/**").permitAll()
+                        .requestMatchers("/address/**").permitAll()
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

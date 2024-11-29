@@ -2216,6 +2216,10 @@ body{
 	visibility:visible;
 }
 /* Recent Posts */
+
+.res_log_post{
+	display: none;
+}
 .main-sidebar .single-post {
 	position: relative;
 	border-bottom: 1px solid #ddd;
@@ -4358,6 +4362,36 @@ body{
 	display:inline-block;
 	margin-left:4px;
 }
+
+
+.nice-select {
+	width: 100% !important;
+	line-height: normal;
+	padding: 8px 12px;
+}
+
+.nice-select .list {
+	width: 100%;
+	max-height: 300px;
+	overflow-y: auto;
+}
+
+.nice-select .option {
+	padding: 8px 12px;
+	min-height: auto;
+	line-height: normal;
+}
+
+.nice-select.disabled {
+	background-color: #e9ecef;
+	opacity: 0.65;
+	pointer-events: none;
+}
+
+.nice-select:after {
+	right: 12px;
+}
+
 
 /*=========================
 	End Footer CSS

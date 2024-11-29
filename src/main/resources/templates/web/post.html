@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{web/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Đăng tin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div layout:fragment="contentA">
+    <div class="main">
+        <nav class="sidebar">
+            <div class="menu_content">
+                <div class="avatar_place">
+                    <div class="avatar">
+                        <img th:src="@{/web/assets/img/user.jpg}" alt="">
+                    </div>
+                    <h4>Admin</h4>
+                </div>
+
+                <ul class="menu_items">
+                    <div class="menu_title menu_editor"></div>
+                    <!-- duplicate these li tag if you want to add or remove navlink only -->
+                    <!-- Start -->
+                    <li class="item">
+                        <a href="./post.html" class="nav_link">
+						<span class="navlink_icon">
+							<i class="bx bx-upload"></i>
+						</span>
+                            <span class="navlink">Đăng mới</span>
+                        </a>
+                    </li>
+                    <!-- End -->
+                    <li class="item">
+                        <a href="#" class="nav_link">
+						<span class="navlink_icon">
+							<i class="bx bx-list-ul"></i>
+						</span>
+                            <span class="navlink">Danh sách tin</span>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#" class="nav_link">
+						<span class="navlink_icon">
+							<i class="bx bx-note"></i>
+						</span>
+                            <span class="navlink">Tin nháp</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="menu_items">
+                    <div class="menu_title menu_setting"></div>
+                    <li class="item">
+                        <a href="#" class="nav_link">
+						<span class="navlink_icon">
+							<i class="bx bx-edit"></i>
+						</span>
+                            <span class="navlink">Chỉnh sửa thông tin cá nhân</span>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#" class="nav_link">
+						<span class="navlink_icon">
+							<i class="bx bx-cog"></i>
+						</span>
+                            <span class="navlink">Cái đặt tài khoản</span>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#" class="nav_link">
+						<span class="navlink_icon">
+							<i class="bx bx-lock"></i>
+						</span>
+                            <span class="navlink">Yêu cầu khóa tài khoản</span>
+                        </a>
+                    </li>
+                    <li class="item">
+                        <a href="#" class="nav_link">
+						<span class="navlink_icon">
+							<i class="bx bx-bell"></i>
+						</span>
+                            <span class="navlink">Thông báo</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="post_container">
+            <form th:action="@{/post}" th:object="${property}" method="post" enctype="multipart/form-data">
+
+                <!-- Thông tin cơ bản -->
+                <input type="hidden" th:field="*{category.id}" value="1"/>
+                <input type="hidden" th:field="*{user.id}" th:value="${user.id}">
+                <div class="section">
+                    <h2 class="section-title">Thông tin cơ bản</h2>
+                    <div class="form-group">
+                        <label for="propertyType" class="required">Loại bất động sản</label>
+                        <select id="propertyType" class="form-control" th:field="*{propertyType}">
+                            <option value="">-- Chọn loại bất động sản --</option>
+                            <option th:each="type : ${propertyTypes}"
+                                    th:value="${type.name()}"
+                                    th:text="${type.displayName}">
+                            </option>
+                        </select>
+                        <span class="error" th:if="${#fields.hasErrors('propertyType')}" th:errors="*{propertyType}"></span>
+                    </div>
+                </div>
+
+                <!-- Địa chỉ -->
+                <div class="section">
+                    <h2 class="section-title">Địa chỉ bất động sản</h2>
+                    <div class="post_row">
+                        <div class="post_col">
+                            <div class="form-group">
+                                <label for="city" class="required">Tỉnh/Thành phố</label>
+                                <select id="city" th:field="*{city}" class="form-control">
+                                    <option value="">-- Chọn Tỉnh/Thành phố --</option>
+                                </select>
+                                <span class="error" th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
+                            </div>
+                        </div>
+                        <div class="post_col">
+                            <div class="form-group">
+                                <label for="district" class="required">Quận/Huyện</label>
+                                <select id="district" th:field="*{district}" class="form-control">
+                                    <option value="">-- Chọn Quận/Huyện --</option>
+                                </select>
+                                <span class="error" th:if="${#fields.hasErrors('district')}" th:errors="*{district}"></span>
+                            </div>
+                        </div>
+                        <div class="post_col">
+                            <div class="form-group">
+                                <label for="ward" class="required">Phường/Xã</label>
+                                <select id="ward" th:field="*{ward}" class="form-control">
+                                    <option value="">-- Chọn Phường/Xã --</option>
+                                </select>
+                                <span class="error" th:if="${#fields.hasErrors('ward')}" th:errors="*{ward}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="required">Địa chỉ chi tiết</label>
+                        <input id="address" type="text" class="form-control" placeholder="Số nhà, tên đường...">
+<!--                        <span class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>-->
+                    </div>
+                </div>
+
+                <!-- Thông tin bài viết -->
+                <div class="section">
+                    <h2 class="section-title">Thông tin bài viết</h2>
+                    <div class="form-group">
+                        <label for="title" class="required">Tiêu đề</label>
+                        <input id="title" th:field="*{title}" type="text" class="form-control">
+                        <p class="note">Tối thiểu 30 ký tự, tối đa 99 ký tự</p>
+                        <span class="error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="required">Mô tả</label>
+                        <textarea id="description" th:field="*{description}" class="form-control" rows="5"></textarea>
+                        <p class="note">Tối thiểu 30 ký tự, tối đa 3000 ký tự</p>
+                        <span class="error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                    </div>
+                </div>
+
+                <!-- Thông tin bất động sản -->
+                <div class="section">
+                    <h2 class="section-title">Thông tin bất động sản</h2>
+                    <div class="post_row">
+                        <div class="post_col">
+                            <div class="form-group">
+                                <label for="price" class="required">Giá</label>
+                                <input id="price" th:field="*{price}" type="number" class="form-control">
+                                <span class="error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+                            </div>
+                        </div>
+                        <div class="post_col">
+                            <div class="form-group">
+                                <label for="area" class="required">Diện tích</label>
+                                <div id="area" class="price-input">
+                                    <input th:field="*{area}" type="number" class="form-control">
+                                    <span>m²</span>
+                                </div>
+                                <span class="error" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post_row">
+                        <div class="post_col">
+                            <div class="form-group">
+                                <label for="bedroom">Số phòng ngủ</label>
+                                <input id="bedroom" type="number" class="form-control">
+<!--                                <span class="error" th:if="${#fields.hasErrors('bedroom')}" th:errors="*{bedroom}"></span>-->
+                            </div>
+                        </div>
+                        <div class="post_col">
+                            <div class="form-group">
+                                <label for="toilet">Số toilet</label>
+                                <input id="toilet" type="number" class="form-control">
+<!--                                <span class="error" th:if="${#fields.hasErrors('toilet')}" th:errors="*{toilet}"></span>-->
+                            </div>
+                        </div>
+                        <div class="post_col">
+                            <div class="form-group">
+                                <label for="floor">Số tầng</label>
+                                <input id="floor" type="number" class="form-control">
+<!--                                <span class="error" th:if="${#fields.hasErrors('floor')}" th:errors="*{floor}"></span>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="direction">Hướng nhà</label>
+                        <select id="direction" th:field="*{direction}" class="form-control">
+                            <option value="">-- Chọn hướng --</option>
+                            <option th:each="dir : ${directions}"
+                                    th:value="${dir}"
+                                    th:text="${dir.displayName}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Tiện ích -->
+<!--                <div class="section">-->
+<!--                    <h2 class="section-title">Tiện ích</h2>-->
+<!--                    <div class="utilities-grid">-->
+<!--                        <div class="utility-item">-->
+<!--                            <input type="checkbox" th:field="*{utilities}" value="PARKING">-->
+<!--                            <label for="utilities">Chỗ để xe</label>-->
+<!--                        </div>-->
+<!--                        <div class="utility-item">-->
+<!--                            <input type="checkbox" th:field="*{utilities}" value="SECURITY">-->
+<!--                            <label for="utilities">An ninh 24/7</label>-->
+<!--                        </div>-->
+<!--                        <div class="utility-item">-->
+<!--                            <input type="checkbox" th:field="*{utilities}" value="POOL">-->
+<!--                            <label for="utilities">Hồ bơi</label>-->
+<!--                        </div>-->
+<!--                        <div class="utility-item">-->
+<!--                            <input type="checkbox" th:field="*{utilities}" value="GYM">-->
+<!--                            <label for="utilities">Phòng gym</label>-->
+<!--                        </div>-->
+<!--                        <div class="utility-item">-->
+<!--                            <input type="checkbox" th:field="*{utilities}" value="ELEVATOR">-->
+<!--                            <label for="utilities">Thang máy</label>-->
+<!--                        </div>-->
+<!--                        <div class="utility-item">-->
+<!--                            <input type="checkbox" th:field="*{utilities}" value="GARDEN">-->
+<!--                            <label for="utilities">Sân vườn</label>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+                <!-- Hình ảnh -->
+                <!-- Hình ảnh -->
+                <div class="section">
+                    <h2 class="section-title">Hình ảnh</h2>
+                    <div class="form-group">
+                        <div class="images-container" id="imageUpload">
+                            <!-- Sửa name từ 'images' thành 'images[]' -->
+                            <input type="file" name="imageFiles" multiple accept="image/*" id="fileInput" style="display: none;">
+                            <p>Bấm để chọn ảnh hoặc kéo thả ảnh vào đây</p>
+                            <p class="note">Tối đa 8 ảnh, định dạng: jpg, jpeg, png (tối đa 2MB/ảnh)</p>
+                        </div>
+                        <div class="image-preview" id="imagePreview"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-button">Đăng tin</button>
+            </form>
+        </div>
+    </div>
+</div>
+<th:block layout:fragment="script">
+    <script>
+        $(document).ready(function() {
+            // Khởi tạo biến
+            const citySelect = $('#city');
+            const districtSelect = $('#district');
+            const wardSelect = $('#ward');
+
+
+            console.log($.fn.niceSelect ? 'niceSelect loaded' : 'niceSelect not loaded');
+
+            // Khởi tạo ban đầu
+            initializeSelects();
+
+            function initializeSelects() {
+                // Disable các select phụ thuộc
+                districtSelect.prop('disabled', true);
+                wardSelect.prop('disabled', true);
+
+                // Khởi tạo Nice Select
+                $('select').niceSelect();
+
+                // Load dữ liệu tỉnh/thành phố
+                loadCities();
+
+                // Thêm event listeners
+                citySelect.on('change', function() {
+                    const selectedCity = $(this).val();
+                    console.log('Selected city:', selectedCity);
+
+                    // Reset quận/huyện và phường/xã
+                    resetSelect(districtSelect);
+                    resetSelect(wardSelect);
+
+                    if (selectedCity) {
+                        districtSelect.prop('disabled', false);
+                        loadDistricts(selectedCity);
+                    }
+                });
+
+                districtSelect.on('change', function() {
+                    const selectedDistrict = $(this).val();
+                    console.log('Selected district:', selectedDistrict);
+
+                    // Reset phường/xã
+                    resetSelect(wardSelect);
+
+                    if (selectedDistrict) {
+                        wardSelect.prop('disabled', false);
+                        loadWards(selectedDistrict);
+                    }
+                });
+            }
+
+            function resetSelect($select) {
+                $select.empty()
+                    .append('<option value="">-- Chọn --</option>')
+                    .prop('disabled', true)
+                    .niceSelect('update');
+            }
+
+            function loadCities() {
+                console.log('Loading cities...');
+                $.ajax({
+                    url: '/address/cities',
+                    method: 'GET',
+                    success: function(data) {
+                        console.log('Cities data:', data);
+                        citySelect.empty().append('<option value="">-- Chọn Tỉnh/Thành phố --</option>');
+
+                        data.forEach(function(city) {
+                            citySelect.append(new Option(city.name, city.code));
+                        });
+
+                        citySelect.niceSelect('update');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error loading cities:', error);
+                        console.log('Response:', xhr.responseText);
+                        alert('Không thể tải danh sách thành phố');
+                    }
+                });
+            }
+
+            function loadDistricts(cityCode) {
+                console.log('Loading districts for city:', cityCode);
+                $.ajax({
+                    url: '/address/districts',
+                    method: 'GET',
+                    data: { cityCode: cityCode },
+                    success: function(data) {
+                        console.log('Districts data:', data);
+                        districtSelect.empty().append('<option value="">-- Chọn Quận/Huyện --</option>');
+
+                        data.forEach(function(district) {
+                            districtSelect.append(new Option(district.name, district.code));
+                        });
+
+                        districtSelect.niceSelect('update');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error loading districts:', error);
+                        console.log('Response:', xhr.responseText);
+                        alert('Không thể tải danh sách quận/huyện');
+                    }
+                });
+            }
+
+            function loadWards(districtCode) {
+                console.log('Loading wards for district:', districtCode);
+                $.ajax({
+                    url: '/address/wards',
+                    method: 'GET',
+                    data: { districtCode: districtCode },
+                    success: function(data) {
+                        console.log('Wards data:', data);
+                        wardSelect.empty().append('<option value="">-- Chọn Phường/Xã --</option>');
+
+                        data.forEach(function(ward) {
+                            wardSelect.append(new Option(ward.name, ward.code));
+                        });
+
+                        wardSelect.niceSelect('update');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error loading wards:', error);
+                        console.log('Response:', xhr.responseText);
+                        alert('Không thể tải danh sách phường/xã');
+                    }
+                });
+            }
+            const imageUpload = $('#imageUpload');
+            const fileInput = $('#fileInput');
+            const imagePreview = $('#imagePreview');
+            const maxFiles = 8;
+            const maxFileSize = 2 * 1024 * 1024; // 2MB
+
+            // Click vào vùng upload để mở file input
+            imageUpload.on('click', function() {
+                fileInput.click();
+            });
+
+            // Xử lý kéo thả
+            imageUpload.on('dragover', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).css('border-color', '#4CAF50');
+            });
+
+            imageUpload.on('dragleave', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).css('border-color', '#ddd');
+            });
+
+            imageUpload.on('drop', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).css('border-color', '#ddd');
+
+                const files = e.originalEvent.dataTransfer.files;
+                handleFiles(files);
+            });
+
+            // Xử lý khi chọn file qua input
+            fileInput.on('change', function(e) {
+                handleFiles(this.files);
+            });
+
+            function handleFiles(files) {
+                if (files.length > maxFiles) {
+                    alert(`Chỉ được chọn tối đa ${maxFiles} ảnh`);
+                    return;
+                }
+
+                let invalidFiles = [];
+
+                Array.from(files).forEach(file => {
+                    // Kiểm tra định dạng file
+                    if (!file.type.match('image.*')) {
+                        invalidFiles.push(`${file.name} không phải là ảnh`);
+                        return;
+                    }
+
+                    // Kiểm tra kích thước
+                    if (file.size > maxFileSize) {
+                        invalidFiles.push(`${file.name} vượt quá 2MB`);
+                        return;
+                    }
+
+                    // Tạo preview
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const preview = $('<div>').addClass('preview-item').css({
+                            'position': 'relative',
+                            'display': 'inline-block',
+                            'margin': '10px'
+                        });
+
+                        const img = $('<img>').attr({
+                            'src': e.target.result,
+                            'alt': 'Preview'
+                        }).css({
+                            'width': '150px',
+                            'height': '150px',
+                            'object-fit': 'cover',
+                            'border-radius': '4px'
+                        });
+
+                        const removeBtn = $('<button>').addClass('remove-btn').html('×').css({
+                            'position': 'absolute',
+                            'top': '5px',
+                            'right': '5px',
+                            'background': 'red',
+                            'color': 'white',
+                            'border': 'none',
+                            'border-radius': '50%',
+                            'width': '20px',
+                            'height': '20px',
+                            'line-height': '20px',
+                            'text-align': 'center',
+                            'cursor': 'pointer',
+                            'padding': '0'
+                        });
+
+                        removeBtn.on('click', function(e) {
+                            e.preventDefault();
+                            preview.remove();
+                            // Cập nhật lại input file
+                            updateFileInput();
+                        });
+
+                        preview.append(img).append(removeBtn);
+                        imagePreview.append(preview);
+                    };
+
+                    reader.readAsDataURL(file);
+                });
+
+                if (invalidFiles.length > 0) {
+                    alert(invalidFiles.join('\n'));
+                }
+            }
+
+            function updateFileInput() {
+                // Tạo một DataTransfer mới
+                const dataTransfer = new DataTransfer();
+
+                // Lấy các file từ input hiện tại
+                const files = fileInput[0].files;
+
+                // Thêm lại các file vào DataTransfer, trừ file đã xóa
+                Array.from(files).forEach(file => {
+                    // Kiểm tra xem preview của file còn tồn tại không
+                    const fileName = file.name;
+                    const fileStillExists = $('.preview-item').toArray()
+                        .some(item => item.querySelector('img').alt === fileName);
+
+                    if (fileStillExists) {
+                        dataTransfer.items.add(file);
+                    }
+                });
+
+                // Gán lại files cho input
+                fileInput[0].files = dataTransfer.files;
+            }
+
+            // CSS cho khu vực upload
+            imageUpload.css({
+                'border': '2px dashed #ddd',
+                'padding': '20px',
+                'text-align': 'center',
+                'cursor': 'pointer',
+                'background': '#f9f9f9',
+                'border-radius': '4px',
+                'transition': 'border-color 0.3s ease'
+            });
+
+            // CSS cho khu vực preview
+            imagePreview.css({
+                'margin-top': '15px',
+                'display': 'flex',
+                'flex-wrap': 'wrap',
+                'gap': '10px'
+            });
+        });
+
+
+    </script>
+</th:block>
+</body>
+</html>

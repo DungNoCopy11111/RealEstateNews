@@ -1,7 +1,9 @@
 package com.example.realestate.controller;
 
+import com.example.realestate.model.Property;
 import com.example.realestate.model.User;
 import com.example.realestate.repository.UserRepository;
+import com.example.realestate.service.PropertyService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -10,11 +12,15 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.util.List;
+
 @ControllerAdvice
 @SessionAttributes("user")
 public class GlobalControllerAdvice {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PropertyService propertyService;
 
     @ModelAttribute("user")
     public User getCurrentUser(HttpSession session) {
@@ -44,5 +50,10 @@ public class GlobalControllerAdvice {
         // Nếu không authenticated, xóa user khỏi session
         session.removeAttribute("user");
         return null;
+    }
+
+    @ModelAttribute("latestProperties")
+    public List<Property> getLatestProperties() {
+        return propertyService.getLatesProperties(10);
     }
 }

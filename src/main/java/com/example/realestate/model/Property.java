@@ -1,7 +1,7 @@
 package com.example.realestate.model;
 
-import com.example.realestate.emums.PropertyDirection;
-import com.example.realestate.emums.PropertyType;
+import com.example.realestate.enums.PropertyDirection;
+import com.example.realestate.enums.PropertyType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -65,8 +65,17 @@ public class Property extends Base{
     @Column(name = "status")
     private Long status;
 
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "district")
+    private String district;
+
+    @Column(name = "ward")
+    private String ward;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id")
     private PropertyCategory category;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -79,4 +88,31 @@ public class Property extends Base{
 
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PropertyImage> images = new ArrayList<>();
+
+    public void addImage(PropertyImage image) {
+        if (images == null) {
+            images = new ArrayList<>();
+        }
+        images.add(image);
+        image.setProperty(this);
+    }
+
+    public void removeImage(PropertyImage image) {
+        if (images != null) {
+            images.remove(image);
+            image.setProperty(null);
+        }
+    }
+
+    public void setImages(List<PropertyImage> images) {
+        if (this.images == null) {
+            this.images = new ArrayList<>();
+        } else {
+            this.images.clear();
+        }
+        if (images != null) {
+            images.forEach(this::addImage);
+        }
+    }
+
 }

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
     <!-- Meta Tags -->
@@ -15,12 +14,13 @@
     <title>RealEstate</title>
 
     <!-- External CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/themify-icons@0.1.2/css/themify-icons.css">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-
-    <!-- Favicon -->
-    <link rel="icon" th:href="@{/web/assets/img/favicon.png}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/themify-icons@0.1.2/css/themify-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+    <link href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
 
     <!-- Local CSS -->
     <link rel="stylesheet" th:href="@{/web/assets/css/bootstrap.min.css}">
@@ -32,12 +32,8 @@
     <link rel="stylesheet" th:href="@{/web/assets/css/datepicker.css}">
     <link rel="stylesheet" th:href="@{/web/assets/css/animate.min.css}">
     <link rel="stylesheet" th:href="@{/web/assets/css/magnific-popup.css}">
-
-    <!-- Owl Carousel -->
     <link rel="stylesheet" th:href="@{/web/assets/owlcarousel/owl.carousel.min.css}">
     <link rel="stylesheet" th:href="@{/web/assets/owlcarousel/owl.theme.default.min.css}">
-
-    <!-- Custom CSS -->
     <link rel="stylesheet" th:href="@{/web/assets/css/normalize.css}">
     <link rel="stylesheet" th:href="@{/web/style.css}">
     <link rel="stylesheet" th:href="@{/web/assets/css/responsive.css}">
@@ -45,68 +41,168 @@
     <link rel="stylesheet" th:href="@{/web/assets/css/search_bar.css}">
     <link rel="stylesheet" th:href="@{/web/assets/css/nha_dat_ban.css}">
     <link rel="stylesheet" th:href="@{/web/assets/css/nha_dat_thue.css}">
+    <link rel="stylesheet" th:href="@{/web/assets/css/post.css}">
 
-    <!-- Font Awesome -->
-    <script src="https://kit.fontawesome.com/84ff2d6485.js" crossorigin="anonymous"></script>
+    <!-- Favicon -->
+    <link rel="icon" th:href="@{/web/assets/img/favicon.png}">
+
+
+
 </head>
 
 <body>
-
-<!-- ======= Header ======= -->
+<!-- Header -->
 <header>
     <div th:replace="~{web/fragments/header::header}"></div>
 </header>
-<div layout:fragment="content">
 
-</div>
-<!-- ======= Sidebar ======= -->
+<!-- Main Content -->
+<div layout:fragment="contentA"></div>
 <footer>
     <div th:replace="~{web/fragments/footer::footer}"></div>
 </footer>
 
 
+<!-- Footer -->
 
-<!-- Vendor JS Files -->
-<!-- Vendor JS Files -->
-<!-- jQuery JS -->
-<!-- jQuery and jQuery UI -->
-<script th:src="@{/web/assets/js/jquery.min.js}"></script>
-<script th:src="@{/web/assets/js/jquery-migrate-3.0.0.js}"></script>
+<!-- External JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+
+<!-- Local JS -->
 <script th:src="@{/web/assets/js/jquery-ui.min.js}"></script>
-
-<!-- Bootstrap and related plugins -->
-<script th:src="@{/web/assets/js/bootstrap.min.js}"></script>
-<script th:src="@{/web/assets/js/popper.min.js}"></script>
 <script th:src="@{/web/assets/js/bootstrap-datepicker.js}"></script>
-
-<!-- Navigation and UI Components -->
 <script th:src="@{/web/assets/js/jquery.nav.js}"></script>
 <script th:src="@{/web/assets/js/slicknav.min.js}"></script>
 <script th:src="@{/web/assets/js/jquery.scrollUp.min.js}"></script>
 <script th:src="@{/web/assets/js/niceselect.js}"></script>
-
-<!-- Animation and Effects -->
 <script th:src="@{/web/assets/js/easing.js}"></script>
 <script th:src="@{/web/assets/js/tilt.jquery.min.js}"></script>
 <script th:src="@{/web/assets/js/wow.min.js}"></script>
-<script th:src="@{/web/assets/js/colors.js}"></script>
-
-<!-- Carousel and Popups -->
 <script th:src="@{/web/assets/js/owl-carousel.js}"></script>
 <script th:src="@{/web/assets/js/jquery.magnific-popup.min.js}"></script>
-
-<!-- Counter and Numbers -->
 <script th:src="@{/web/assets/js/jquery.counterup.min.js}"></script>
 <script th:src="@{/web/assets/js/steller.js}"></script>
-
-<!-- CDN Resources -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-
-<!-- Custom Scripts -->
+<script th:src="@{/web/assets/js/colors.js}"></script>
 <script th:src="@{/web/assets/js/main.js}"></script>
 <script th:src="@{/web/assets/js/main_content.js}"></script>
+<script type="text/javascript" th:src="@{/web/assets/js/post.js}"></script>
+<script type="text/javascript" th:src="@{/web/assets/js/nha_dat_ban.js}"></script>
+<script type="text/javascript" th:src="@{/web/assets/js/nha_dat_thue.js}"></script>
+<script type="text/javascript" th:src="@{/web/assets/js/menu.js}"></script>
 
-<!-- Add this block for page-specific scripts -->
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        // Đảm bảo jQuery đã được load
+        if (typeof jQuery !== 'undefined') {
+            try {
+                // Xử lý hình ảnh
+                const images = document.querySelectorAll('.product_item_image');
+                if (images.length > 0) {
+                    images.forEach(function(img) {
+                        if (img) {
+                            img.onerror = function() {
+                                this.src = '[[@{/web/assets/img/test1.jpg}]]';
+                            }
+                            const src = img.getAttribute('src');
+                            if(src) {
+                                img.setAttribute('src', src + '?t=' + new Date().getTime());
+                            }
+                        }
+                    });
+                }
+
+                // Khởi tạo plugins
+                if($.fn.niceSelect) {
+                    $('select').niceSelect();
+                }
+
+                if($.fn.owlCarousel && $('.owl-carousel').length > 0) {
+                    $(".owl-carousel").owlCarousel({
+                        items: 1,
+                        loop: true,
+                        margin: 10,
+                        nav: true,
+                        responsive: {
+                            0: { items: 1 },
+                            600: { items: 2 },
+                            1000: { items: 3 }
+                        }
+                    });
+                }
+            } catch(error) {
+                console.error('Error in DOMContentLoaded:', error);
+            }
+        }
+    });
+
+    // Thêm event listener cho window load
+    window.addEventListener('load', function() {
+        // Đảm bảo footer luôn ở dưới cùng
+        function adjustFooter() {
+            const wrapper = document.getElementById('wrapper');
+            const footer = document.querySelector('footer');
+            if (wrapper && footer) {
+                const windowHeight = window.innerHeight;
+                const footerHeight = footer.offsetHeight;
+                wrapper.style.minHeight = (windowHeight - footerHeight) + 'px';
+            }
+        }
+
+        adjustFooter();
+        window.addEventListener('resize', adjustFooter);
+    });
+</script>
+<!-- Script để xử lý ảnh -->
+<script th:inline="javascript">
+    console.log('nha_dat_ban.js loaded');
+    document.addEventListener('DOMContentLoaded', function() {
+        try {
+            const images = document.querySelectorAll('.product_item_image');
+            images.forEach(function(img) {
+                // Xử lý lỗi ảnh
+                img.onerror = function() {
+                    this.src = '[[@{/web/assets/img/test1.jpg}]]';
+                }
+
+                // Thêm timestamp để tránh cache
+                const src = img.getAttribute('src');
+                if(src) {
+                    img.setAttribute('src', src + '?t=' + new Date().getTime());
+                }
+            });
+
+            // Khởi tạo các plugin
+            if($.fn.niceSelect) {
+                $('select').niceSelect();
+            }
+
+            if($.fn.owlCarousel) {
+                $(".owl-carousel").owlCarousel({
+                    items: 1,
+                    loop: true,
+                    margin: 10,
+                    nav: true,
+                    responsive: {
+                        0: { items: 1 },
+                        600: { items: 2 },
+                        1000: { items: 3 }
+                    }
+                });
+            }
+        } catch(error) {
+            console.error('Error initializing components:', error);
+        }
+    });
+</script>
+
+
+<!-- Page-Specific Scripts -->
 <th:block layout:fragment="script"></th:block>
+
 </body>
 </html>
