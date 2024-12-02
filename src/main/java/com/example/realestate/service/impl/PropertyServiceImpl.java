@@ -3,10 +3,7 @@ package com.example.realestate.service.impl;
 import com.example.realestate.converter.PropertyConverter;
 import com.example.realestate.dtos.dto.PropertyDTO;
 import com.example.realestate.dtos.request.CreatePostRequest;
-import com.example.realestate.enums.City;
-import com.example.realestate.enums.District;
-import com.example.realestate.enums.PropertyType;
-import com.example.realestate.enums.Ward;
+import com.example.realestate.enums.*;
 import com.example.realestate.model.Property;
 import com.example.realestate.model.PropertyAddress;
 import com.example.realestate.model.PropertyImage;
@@ -113,8 +110,8 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public List<Property> searchProperties(String city, PropertyType propertyType, Double minPrice, Double maxPrice, Double minArea, Double maxArea) {
-        return propertyRepository.searchProperties(city, propertyType, minPrice, maxPrice, minArea, maxArea);
+    public List<Property> searchProperties(String city, PropertyType propertyType, Double minPrice, Double maxPrice, Double minArea, Double maxArea, PropertyDirection direction, Long bedroomCount) {
+        return propertyRepository.searchProperties(city, propertyType, minPrice, maxPrice, minArea, maxArea,direction,bedroomCount);
     }
 
 

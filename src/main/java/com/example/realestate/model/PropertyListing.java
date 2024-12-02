@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PropertyListing extends Base {
+public class PropertyListing{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

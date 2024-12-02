@@ -2,6 +2,7 @@ package com.example.realestate.service;
 
 import com.example.realestate.dtos.dto.PropertyDTO;
 import com.example.realestate.dtos.request.CreatePostRequest;
+import com.example.realestate.enums.PropertyDirection;
 import com.example.realestate.enums.PropertyType;
 import com.example.realestate.model.Property;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,7 +19,7 @@ public interface PropertyService {
     List<PropertyDTO> getActiveProperties();
     List<PropertyDTO> getSaleProperty();
     List<PropertyDTO> getRentProperty();
-    List<Property> searchProperties(String city, PropertyType propertyType, Double minPrice, Double maxPrice, Double minArea, Double maxArea);
+    List<Property> searchProperties(String city, PropertyType propertyType, Double minPrice, Double maxPrice, Double minArea, Double maxArea, PropertyDirection direction,Long bedroomCount);
     Property saveProperty(Property property, List<MultipartFile> imageFiles) throws IOException;
     List<Property> getLatesProperties(int limit);
 }

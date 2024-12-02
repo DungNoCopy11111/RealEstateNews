@@ -1,5 +1,6 @@
 package com.example.realestate.dtos.dto;
 
+import com.example.realestate.enums.PropertyDirection;
 import com.example.realestate.enums.PropertyType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
@@ -27,4 +28,7 @@ public class PropertySearchDTO {
 
     @Min(value = 0, message = "Diện tích tối đa không được âm")
     private Double maxArea;
+
+    private Long bedroomCount;
+    private PropertyDirection direction;
 }

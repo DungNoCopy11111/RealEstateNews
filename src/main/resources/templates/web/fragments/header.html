@@ -33,13 +33,8 @@
                                         <li><a th:href="@{/home}">Trang Chủ</a></li>
                                         <li><a th:href="@{/nha-dat-ban}">Nhà đất bán</a></li>
                                         <li><a th:href="@{/nha-dat-thue}">Nhà đất thuê</a></li>
-                                        <li><a href="#">Phân tích đánh giá<i class="icofont-rounded-down"></i></a>
-                                        </li>
-                                        <li><a href="#">Danh bạ<i class="icofont-rounded-down"></i></a>
-                                            <ul class="dropdown">
-                                                <li><a th:href="@{/blog-single.html}">Blog Details</a></li>
-                                            </ul>
-                                        </li>
+                                        <li><a th:href="@{/phan-tich}">Phân tích đánh giá</a></li>
+                                        <li><a href="#">Danh bạ</a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -47,8 +42,53 @@
                         </div>
                         <div class="col-lg-3 col-12 end_header">
                             <div class="get-quote header_right">
+                                <div class="avatar_total">
+                                    <div class="log_avatar">
+                                        <div class="avatar">
+                                            <img th:src="@{/web/assets/img/user.jpg}" alt="">
+                                        </div>
+                                        <div class="drop_down_avatar">
+                                            <img th:src="@{/web/assets/img/drop_down_avatar.png}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="show_down_avatar hidden">
+                                        <ul class="lists_avatar">
+                                            <li>
+                                                <a class="space_list" href="">
+                                                    <i class="fa-solid fa-user"></i>
+                                                    <span class="list_avatar">Thay đổi thông tin cá nhân</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="space_list" href="">
+                                                    <i class="fa-solid fa-lock"></i>
+                                                    <span class="list_avatar">Đổi mật khẩu</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="space_list" href="">
+                                                    <i class="fa-solid fa-square-plus"></i>
+                                                    <span class="list_avatar">Bài đăng</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="space_list" href="">
+                                                    <i class="fa-solid fa-list-check"></i>
+                                                    <span class="list_avatar">Quản lý tin đăng</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="logout_avatar">
+                                            <li>
+                                                <a class="" th:href="@{/login}">
+                                                    <i class="sign_out fa-solid fa-right-from-bracket"></i>
+                                                    <span >Đăng xuất</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                                 <a th:href="@{/post}" class="btn right_btn">Đăng tin</a>
-                                <a th:href="@{/login}" class="btn right_btn">Đăng nhập</a>
                             </div>
                         </div>
                     </div>

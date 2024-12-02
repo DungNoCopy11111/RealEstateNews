@@ -1,7 +1,6 @@
 package com.example.realestate.model;
 
-import com.example.realestate.enums.PropertyDirection;
-import com.example.realestate.enums.PropertyType;
+import com.example.realestate.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
 

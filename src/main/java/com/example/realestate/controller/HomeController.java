@@ -1,5 +1,6 @@
 package com.example.realestate.controller;
 
+import com.example.realestate.converter.PropertyConverter;
 import com.example.realestate.dtos.dto.PropertyDTO;
 import com.example.realestate.dtos.dto.PropertySearchDTO;
 import com.example.realestate.enums.PropertyDirection;
@@ -29,6 +30,8 @@ public class HomeController {
     private UserRepository userRepository;
     @Autowired
     private PropertyService propertyService;
+    @Autowired
+    private PropertyConverter propertyConverter;
     @GetMapping("/home")
     public String home( @RequestParam(name = "layout",defaultValue = "web/home") String layout, Model model ){
         model.addAttribute("layout",layout);
@@ -70,14 +73,38 @@ public class HomeController {
     }
     @GetMapping("/nha-dat-ban")
     public String showNhaDatBan(Model model){
+        model.addAttribute("searchForm", new PropertySearchDTO());
         model.addAttribute("saleproperties",propertyService.getSaleProperty());
 
         return "web/nhadatban";
     }
     @GetMapping("/nha-dat-thue")
     public String showNhaDatThue(Model model){
+        model.addAttribute("searchForm", new PropertySearchDTO());
         model.addAttribute("rentproperties",propertyService.getRentProperty());
         return "web/nhadatthue";
+    }
+
+    @GetMapping("/phan-tich")
+    public String showPhanTich(){
+        return "web/phantich";
+    }
+
+    @GetMapping("/info-property/{id}")
+    public String showInfoProperty(Model model,@PathVariable Long id){
+        try {
+            PropertyDTO propertyDTO = propertyConverter.toDTO(propertyService.getPropertyById(id));
+            if(propertyDTO == null){
+                return "web/nhadatban";
+            }
+            model.addAttribute("property",propertyDTO);
+            log.info("Showing property");
+            return "web/infoproperty";
+
+        } catch (Exception e){
+            return "web/nhadatban";
+
+        }
     }
     @GetMapping("/post")
     public String showPost(Model model, HttpSession session){

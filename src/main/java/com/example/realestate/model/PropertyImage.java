@@ -10,25 +10,13 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PropertyImage extends Base {
+public class PropertyImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "url", nullable = false)
     private String url;
-
-    @Column(name = "thumbnail_url")
-    private String thumbnailUrl;
-
-    @Column(name = "caption")
-    private String caption;
-
-    @Column(name = "image_data", columnDefinition = "LONGBLOB")
-    private byte[] imageData;
-
-    @Column(name = "display_order")
-    private Integer displayOrder;
 
     @Column(name = "is_primary", nullable = false)
     private Boolean isPrimary = false;

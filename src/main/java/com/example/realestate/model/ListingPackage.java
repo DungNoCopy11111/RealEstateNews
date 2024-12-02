@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ListingPackage extends Base {
+public class ListingPackage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

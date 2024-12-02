@@ -13,14 +13,22 @@
                 <div class="search_area">
                     <div class="search_bar_ban">
                         <div class="search_attribute">
-                            <form action="/your-endpoint" method="POST">
+                            <form th:action="@{/property/search}" method="POST" th:object="${searchForm}">
+                                <input type="hidden" th:field="*{city}" id="city">
+                                <input type="hidden" th:field="*{propertyType}" id="propertyType">
+                                <input type="hidden" th:field="*{minPrice}" id="minPrice">
+                                <input type="hidden" th:field="*{maxPrice}" id="maxPrice">
+                                <input type="hidden" th:field="*{minArea}" id="minArea">
+                                <input type="hidden" th:field="*{maxArea}" id="maxArea">
+                                <input type="hidden" th:field="*{bedroomCount}" id="bedroomCount">
+                                <input type="hidden" th:field="*{direction}" id="direction">
                                 <div class="input_box_ban">
                                     <i id="true_province" class="uil uil-search"></i>
-                                    <input id="true_province_ban" value="province_selected" name="chon_tinh" class="input_en" type="text" placeholder="Chọn tỉnh thành"/>
-                                    <button id="button_search_ban" class="button_search_ban">Search</button>
+                                    <input id="true_province_" class="input_en" type="text" placeholder="Chọn tỉnh thành"/>
+                                    <button type="submit" id="button_search_ban" class="button_search_ban">Search</button>
                                 </div>
                                 <div class="show_all_">
-                                    <div class="show_all_ban" id="menu_ban">
+                                    <div class="show_all active" id="menu">
                                         <div class="_first">
                                             <div class="header_show">
                                                 <div class="left">
@@ -31,73 +39,73 @@
                                                 </svg>
                                             </div>
                                         </div>
-                                        <div class="line_true_province"></div>
+                                        <div class="show_hr"></div>
                                         <div class="_second">
                                             <div class="content_show">
                                                 <div class="grid-container">
-                                                    <div class="grid-item" data-value="An Giang">An Giang</div>
-                                                    <div class="grid-item" data-value="Bà Rịa Vũng Tàu">BR Vũng Tàu</div>
-                                                    <div class="grid-item" data-value="Bạc Liêu">Bạc Liêu</div>
-                                                    <div class="grid-item" data-value="Bắc Kạn">Bắc Kạn</div>
-                                                    <div class="grid-item" data-value="Bắc Giang">Bắc Giang</div>
-                                                    <div class="grid-item" data-value="Bắc Ninh">Bắc Ninh</div>
-                                                    <div class="grid-item" data-value="Bến Tre">Bến Tre</div>
-                                                    <div class="grid-item" data-value="Bình Dương">Bình Dương</div>
-                                                    <div class="grid-item" data-value="Bình Định">Bình Định</div>
-                                                    <div class="grid-item" data-value="Bình Phước">Bình Phước</div>
-                                                    <div class="grid-item" data-value="Bình Thuận">Bình Thuận</div>
-                                                    <div class="grid-item" data-value="Cà Mau">Cà Mau</div>
-                                                    <div class="grid-item" data-value="Cao Bằng">Cao Bằng</div>
-                                                    <div class="grid-item" data-value="Cần Thơ">Cần Thơ</div>
-                                                    <div class="grid-item" data-value="Đà Nẵng">Đà Nẵng</div>
-                                                    <div class="grid-item" data-value="Đắk Lắk">Đắk Lắk</div>
-                                                    <div class="grid-item" data-value="Đắk Nông">Đắk Nông</div>
-                                                    <div class="grid-item" data-value="Điện Biên">Điện Biên</div>
-                                                    <div class="grid-item" data-value="Đồng Nai">Đồng Nai</div>
-                                                    <div class="grid-item" data-value="Đồng Tháp">Đồng Tháp</div>
-                                                    <div class="grid-item" data-value="Gia Lai">Gia Lai</div>
-                                                    <div class="grid-item" data-value="Hà Giang">Hà Giang</div>
-                                                    <div class="grid-item" data-value="Hà Nam">Hà Nam</div>
-                                                    <div class="grid-item" data-value="Hà Nội">Hà Nội</div>
-                                                    <div class="grid-item" data-value="Hà Tĩnh">Hà Tĩnh</div>
-                                                    <div class="grid-item" data-value="Hải Dương">Hải Dương</div>
-                                                    <div class="grid-item" data-value="Hải Phòng">Hải Phòng</div>
-                                                    <div class="grid-item" data-value="Hậu Giang">Hậu Giang</div>
-                                                    <div class="grid-item" data-value="Hòa Bình">Hòa Bình</div>
-                                                    <div class="grid-item" data-value="Hưng Yên">Hưng Yên</div>
-                                                    <div class="grid-item" data-value="Khánh Hòa">Khánh Hòa</div>
-                                                    <div class="grid-item" data-value="Kiên Giang">Kiên Giang</div>
-                                                    <div class="grid-item" data-value="Kon Tum">Kon Tum</div>
-                                                    <div class="grid-item" data-value="Lai Châu">Lai Châu</div>
-                                                    <div class="grid-item" data-value="Lâm Đồng">Lâm Đồng</div>
-                                                    <div class="grid-item" data-value="Lạng Sơn">Lạng Sơn</div>
-                                                    <div class="grid-item" data-value="Lào Cai">Lào Cai</div>
-                                                    <div class="grid-item" data-value="Long An">Long An</div>
-                                                    <div class="grid-item" data-value="Nam Định">Nam Định</div>
-                                                    <div class="grid-item" data-value="Nghệ An">Nghệ An</div>
-                                                    <div class="grid-item" data-value="Ninh Bình">Ninh Bình</div>
-                                                    <div class="grid-item" data-value="Ninh Thuận">Ninh Thuận</div>
-                                                    <div class="grid-item" data-value="Phú Thọ">Phú Thọ</div>
-                                                    <div class="grid-item" data-value="Phú Yên">Phú Yên</div>
-                                                    <div class="grid-item" data-value="Quảng Bình">Quảng Bình</div>
-                                                    <div class="grid-item" data-value="Quảng Nam">Quảng Nam</div>
-                                                    <div class="grid-item" data-value="Quảng Ngãi">Quảng Ngãi</div>
-                                                    <div class="grid-item" data-value="Quảng Ninh">Quảng Ninh</div>
-                                                    <div class="grid-item" data-value="Quảng Trị">Quảng Trị</div>
-                                                    <div class="grid-item" data-value="Sóc Trăng">Sóc Trăng</div>
-                                                    <div class="grid-item" data-value="Sơn La">Sơn La</div>
-                                                    <div class="grid-item" data-value="Tây Ninh">Tây Ninh</div>
-                                                    <div class="grid-item" data-value="Thái Bình">Thái Bình</div>
-                                                    <div class="grid-item" data-value="Thái Nguyên">Thái Nguyên</div>
-                                                    <div class="grid-item" data-value="Thanh Hóa">Thanh Hóa</div>
-                                                    <div class="grid-item" data-value="Thừa Thiên Huế">Thừa Thiên Huế</div>
-                                                    <div class="grid-item" data-value="Tiền Giang">Tiền Giang</div>
-                                                    <div class="grid-item" data-value="TP Hồ Chí Minh">TP Hồ Chí Minh</div>
-                                                    <div class="grid-item" data-value="Trà Vinh">Trà Vinh</div>
-                                                    <div class="grid-item" data-value="Tuyên Quang">Tuyên Quang</div>
-                                                    <div class="grid-item" data-value="Vĩnh Long">Vĩnh Long</div>
-                                                    <div class="grid-item" data-value="Vĩnh Phúc">Vĩnh Phúc</div>
-                                                    <div class="grid-item" data-value="Yên Bái">Yên Bái</div>
+                                                    <div class="grid-item" data-value="ANGIANG" onclick="selectValue(this)">An Giang</div>
+                                                    <div class="grid-item" data-value="BRVT" onclick="selectValue(this)">BR Vũng Tàu</div>
+                                                    <div class="grid-item" data-value="BACLIEU" onclick="selectValue(this)">Bạc Liêu</div>
+                                                    <div class="grid-item" data-value="BACKAN" onclick="selectValue(this)">Bắc Kạn</div>
+                                                    <div class="grid-item" data-value="BACGIANG" onclick="selectValue(this)">Bắc Giang</div>
+                                                    <div class="grid-item" data-value="BACNINH" onclick="selectValue(this)">Bắc Ninh</div>
+                                                    <div class="grid-item" data-value="BENTRE" onclick="selectValue(this)">Bến Tre</div>
+                                                    <div class="grid-item" data-value="BINHDUONG" onclick="selectValue(this)">Bình Dương</div>
+                                                    <div class="grid-item" data-value="BINHDINH" onclick="selectValue(this)">Bình Định</div>
+                                                    <div class="grid-item" data-value="BINHPHUOC" onclick="selectValue(this)">Bình Phước</div>
+                                                    <div class="grid-item" data-value="BINHTHUAN" onclick="selectValue(this)">Bình Thuận</div>
+                                                    <div class="grid-item" data-value="CAMAU" onclick="selectValue(this)">Cà Mau</div>
+                                                    <div class="grid-item" data-value="CAOBANG" onclick="selectValue(this)">Cao Bằng</div>
+                                                    <div class="grid-item" data-value="CANTHO" onclick="selectValue(this)">Cần Thơ</div>
+                                                    <div class="grid-item" data-value="DANANG" onclick="selectValue(this)">Đà Nẵng</div>
+                                                    <div class="grid-item" data-value="DAKLAK" onclick="selectValue(this)">Đắk Lắk</div>
+                                                    <div class="grid-item" data-value="DAKNONG" onclick="selectValue(this)">Đắk Nông</div>
+                                                    <div class="grid-item" data-value="DIENBIEN" onclick="selectValue(this)">Điện Biên</div>
+                                                    <div class="grid-item" data-value="DONGNAI" onclick="selectValue(this)">Đồng Nai</div>
+                                                    <div class="grid-item" data-value="DONGTHAP" onclick="selectValue(this)">Đồng Tháp</div>
+                                                    <div class="grid-item" data-value="GIALAI" onclick="selectValue(this)">Gia Lai</div>
+                                                    <div class="grid-item" data-value="HAGIANG" onclick="selectValue(this)">Hà Giang</div>
+                                                    <div class="grid-item" data-value="HANAM" onclick="selectValue(this)">Hà Nam</div>
+                                                    <div class="grid-item" data-value="HANOI" onclick="selectValue(this)">Hà Nội</div>
+                                                    <div class="grid-item" data-value="HATINH" onclick="selectValue(this)">Hà Tĩnh</div>
+                                                    <div class="grid-item" data-value="HAIDUONG" onclick="selectValue(this)">Hải Dương</div>
+                                                    <div class="grid-item" data-value="HAIPHONG" onclick="selectValue(this)">Hải Phòng</div>
+                                                    <div class="grid-item" data-value="HAUGIANG" onclick="selectValue(this)">Hậu Giang</div>
+                                                    <div class="grid-item" data-value="HOABINH" onclick="selectValue(this)">Hòa Bình</div>
+                                                    <div class="grid-item" data-value="HUNGYEN" onclick="selectValue(this)">Hưng Yên</div>
+                                                    <div class="grid-item" data-value="KHANHHOA" onclick="selectValue(this)">Khánh Hòa</div>
+                                                    <div class="grid-item" data-value="KIENGIANG" onclick="selectValue(this)">Kiên Giang</div>
+                                                    <div class="grid-item" data-value="KONTUM" onclick="selectValue(this)">Kon Tum</div>
+                                                    <div class="grid-item" data-value="LAICHAU" onclick="selectValue(this)">Lai Châu</div>
+                                                    <div class="grid-item" data-value="LAMDONG" onclick="selectValue(this)">Lâm Đồng</div>
+                                                    <div class="grid-item" data-value="LANGSON" onclick="selectValue(this)">Lạng Sơn</div>
+                                                    <div class="grid-item" data-value="LAOCAI" onclick="selectValue(this)">Lào Cai</div>
+                                                    <div class="grid-item" data-value="LONGAN" onclick="selectValue(this)">Long An</div>
+                                                    <div class="grid-item" data-value="NAMDINH" onclick="selectValue(this)">Nam Định</div>
+                                                    <div class="grid-item" data-value="NGHEAN" onclick="selectValue(this)">Nghệ An</div>
+                                                    <div class="grid-item" data-value="NINHBINH" onclick="selectValue(this)">Ninh Bình</div>
+                                                    <div class="grid-item" data-value="NINHTHUAN" onclick="selectValue(this)">Ninh Thuận</div>
+                                                    <div class="grid-item" data-value="PHUTHO" onclick="selectValue(this)">Phú Thọ</div>
+                                                    <div class="grid-item" data-value="PHUYEN" onclick="selectValue(this)">Phú Yên</div>
+                                                    <div class="grid-item" data-value="QUANGBINH" onclick="selectValue(this)">Quảng Bình</div>
+                                                    <div class="grid-item" data-value="QUANGNAM" onclick="selectValue(this)">Quảng Nam</div>
+                                                    <div class="grid-item" data-value="QUANGNGAI" onclick="selectValue(this)">Quảng Ngãi</div>
+                                                    <div class="grid-item" data-value="QUANGNINH" onclick="selectValue(this)">Quảng Ninh</div>
+                                                    <div class="grid-item" data-value="QUANGTRI" onclick="selectValue(this)">Quảng Trị</div>
+                                                    <div class="grid-item" data-value="SOCTRANG" onclick="selectValue(this)">Sóc Trăng</div>
+                                                    <div class="grid-item" data-value="SONLA" onclick="selectValue(this)">Sơn La</div>
+                                                    <div class="grid-item" data-value="TAYNINH" onclick="selectValue(this)">Tây Ninh</div>
+                                                    <div class="grid-item" data-value="THAIBINH" onclick="selectValue(this)">Thái Bình</div>
+                                                    <div class="grid-item" data-value="THAINGUYEN" onclick="selectValue(this)">Thái Nguyên</div>
+                                                    <div class="grid-item" data-value="THANHHOA" onclick="selectValue(this)">Thanh Hóa</div>
+                                                    <div class="grid-item" data-value="THUATHIENHUE" onclick="selectValue(this)">Thừa Thiên Huế</div>
+                                                    <div class="grid-item" data-value="TIENGIANG" onclick="selectValue(this)">Tiền Giang</div>
+                                                    <div class="grid-item" data-value="HCMC" onclick="selectValue(this)">TP Hồ Chí Minh</div>
+                                                    <div class="grid-item" data-value="TRAVINH" onclick="selectValue(this)">Trà Vinh</div>
+                                                    <div class="grid-item" data-value="TUYENQUANG" onclick="selectValue(this)">Tuyên Quang</div>
+                                                    <div class="grid-item" data-value="VINHLONG" onclick="selectValue(this)">Vĩnh Long</div>
+                                                    <div class="grid-item" data-value="VINHPHUC" onclick="selectValue(this)">Vĩnh Phúc</div>
+                                                    <div class="grid-item" data-value="YENBAI" onclick="selectValue(this)">Yên Bái</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -128,12 +136,12 @@
                                                             <input class="check_true checkbox_left_1" type="checkbox" id="ban_left_1" name="ban_home" value="ban_all_home">
                                                         </li>
                                                         <li class="li_mini_content">
-                                                            <label for="ban_left_2" class="kind_mini_text_2">Chung cư</label>
-                                                            <input class="check_true checkbox_left_2" type="checkbox" id="ban_left_2" name="ban_home" value="ban_apartment">
+                                                            <label for="ban_left_2" class="kind_mini_text_2">Nhà đất bán</label>
+                                                            <input class="check_true checkbox_left_2" type="checkbox" id="ban_left_2" name="ban_home" value="SALE">
                                                         </li>
                                                         <li class="li_mini_content">
-                                                            <label for="ban_left_3" class="kind_mini_text_3">Nhà riêng</label>
-                                                            <input class="check_true checkbox_left_3" type="checkbox" id="ban_left_3" name="ban_home" value="ban_private_home">
+                                                            <label for="ban_left_3" class="kind_mini_text_3">Nhà đất cho thuê</label>
+                                                            <input class="check_true checkbox_left_3" type="checkbox" id="ban_left_3" name="ban_home" value="RENT">
                                                         </li>
                                                     </ul>
                                                     <div class="line_mini_bottom"></div>
@@ -293,39 +301,38 @@
                                                     </div>
                                                     <ul class="compass">
                                                         <li class="direction_north north">
-                                                            <input type="radio" name="direction" id="north" value="north" hidden>
+                                                            <input type="radio" name="direction" id="north" value="NORTH" hidden>
                                                             <label for="north">Bắc</label>
                                                         </li>
                                                         <li class="direction_north_east north_east">
-                                                            <input type="radio" name="direction" id="north_east" value="north_east" hidden>
+                                                            <input type="radio" name="direction" id="north_east" value="NORTHEAST" hidden>
                                                             <label for="north_east">Đông Bắc</label>
                                                         </li>
                                                         <li class="direction_east east">
-                                                            <input type="radio" name="direction" id="east" value="east" hidden>
+                                                            <input type="radio" name="direction" id="east" value="EAST" hidden>
                                                             <label for="east">Đông</label>
                                                         </li>
                                                         <li class="direction_south_east south_east">
-                                                            <input type="radio" name="direction" id="south_east" value="south_east" hidden>
+                                                            <input type="radio" name="direction" id="south_east" value="SOUTHEAST" hidden>
                                                             <label for="south_east">Đông Nam</label>
                                                         </li>
                                                         <li class="direction_south south">
-                                                            <input type="radio" name="direction" id="south" value="south" hidden>
+                                                            <input type="radio" name="direction" id="south" value="SOUTH" hidden>
                                                             <label for="south">Nam</label>
                                                         </li>
                                                         <li class="direction_south_west south_west">
-                                                            <input type="radio" name="direction" id="south_west" value="south_west" hidden>
+                                                            <input type="radio" name="direction" id="south_west" value="SOUTHWEST" hidden>
                                                             <label for="south_west">Tây Nam</label>
                                                         </li>
                                                         <li class="direction_west west">
-                                                            <input type="radio" name="direction" id="west" value="west" hidden>
+                                                            <input type="radio" name="direction" id="west" value="WEST" hidden>
                                                             <label for="west">Tây</label>
                                                         </li>
                                                         <li class="direction_north_west north_west">
-                                                            <input type="radio" name="direction" id="north_west" value="north_west" hidden>
+                                                            <input type="radio" name="direction" id="north_west" value="NORTHWEST" hidden>
                                                             <label for="north_west">Tây Bắc</label>
                                                         </li>
 
-                                                        <div class="inner-circle"></div>
                                                     </ul>
                                                     <div class="line_mini_bottom"></div>
                                                     <div class="kind_mini_bottom">
@@ -347,23 +354,35 @@
                         <div class="property-card" th:each="property,iterStat : ${saleproperties}" th:if="${iterStat.index < 5}">
                             <div class="image-gallery">
                                 <div class="gallery-container">
-                                    <img th:src="@{/web/assets/img/20241102115121-03fa_wm.jpg}" alt="Property Image" class="gallery-image">
+                                    <img  alt="Property Image" class="gallery-image"
+                                          th:if="${not #lists.isEmpty(property.images)}"
+                                          th:src="@{${property.images[0].webPath}(v=${#dates.createNow().time})}"
+                                          th:alt="${property.title}"
+                                    >
+
+                                    <img  alt="Property Image" class="gallery-image"
+                                          th:unless="${not #lists.isEmpty(property.images)}"
+                                          th:src="@{/web/assets/img/test1.jpg}"
+                                          th:alt="${property.title}"
+                                    >
                                 </div>
                                 <span class="vip-badge">VIP</span>
                                 <!-- <span class="image-counter">1/5</span> -->
                             </div>
 
                             <div class="property-info">
-                                <h2 class="property-title" th:text="${property.title}">GIỎ CĂN OPUS ONE ĐỘC QUYỀN - STUDIO: 2,7 TỶ / 1PN +: 3,6 TỶ / 2PN: 5,4 TỶ / 3PN: 7,6 TỶ</h2>
+                                <h2 class="property-title">
+                                    <a th:href="@{/info-property/{id}(id=${property.id})}" th:text="${property.title}">Beautiful</a>
+                                </h2>
 
                                 <div class="property-stats">
-                                    <span class="price" th:text="${property.price}">3,6 tỷ</span>
-                                    <span class="area" th:text="${property.area}">55 m²</span>
+                                    <span class="price" th:text="${property.price + ' tỷ'}">3,6 tỷ</span>
+                                    <span class="area" th:text="${property.area + ' m²'}">55 m²</span>
                                 </div>
 
                                 <div class="property-details">
-                                    <span th:text="${property.bedroomCount}">1 phòng ngủ</span>
-                                    <span th:text="${property.bathroomCount}">1 phòng tắm</span>
+                                    <span th:text="${property.bedroomCount + ' phòng ngủ'}">1 phòng ngủ</span>
+                                    <span th:text="${property.bathroomCount +' phòng tắm'}">1 phòng tắm</span>
                                     <span class="location" th:text="${property.address}">Quận 9, Hồ Chí Minh</span>
                                 </div>
 
@@ -373,7 +392,7 @@
 
                                 <div class="seller-info">
                                     <div class="seller">
-                                        <img src="/api/placeholder/30/30" alt="Seller Logo" class="seller-logo">
+                                        <img th:src="@{/web/assets/img/test1.jpg}" alt="Seller Logo" class="seller-logo">
                                         <div>
                                             <div class="seller-name">Pkd Vinhomes</div>
                                             <div class="seller-time">Đăng hôm nay</div>
@@ -381,7 +400,7 @@
                                     </div>
 
                                     <div class="actions">
-                                        <a href="tel:0906929***" class="contact-button">
+                                        <a href="tel:0906929***" class="contact-button" th:text="|Phone : ${property.userPhone}|">
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                                             </svg>
@@ -469,6 +488,127 @@
                 </div>
             </div>
         </div>
+        <script th:inline="javascript">
+            // Hàm chọn tỉnh/thành phố
+            function selectValue(element) {
+                const selectedValue = element.getAttribute('data-value');
+                document.getElementById('true_province_').value = selectedValue;
+                document.getElementById('city').value = selectedValue;
+                console.log("Đã chọn tỉnh/thành phố:", selectedValue);
+
+                const menu = document.getElementById('menu');
+                if (menu.classList.contains('active')) {
+                    menu.classList.remove('active');
+                }
+            }
+
+            // Xử lý loại nhà đất
+            document.getElementById('sub_kind_mini_1').onclick = function() {
+                const selected = document.querySelector('input[name="ban_home"]:checked');
+                if(selected) {
+                    document.getElementById('propertyType').value = selected.value;
+                    document.getElementById('post_value_1').textContent = selected.parentElement.querySelector('label').textContent;
+                    console.log("Đã chọn loại nhà đất:", selected.value);
+                }
+                document.querySelector('.kind_mini_1').classList.add('hidden');
+            }
+
+            // Xử lý giá
+            document.getElementById('sub_kind_mini_2').onclick = function() {
+                const selected = document.querySelector('input[name="gia_price"]:checked');
+                if(selected) {
+                    switch(selected.value) {
+                        case 'gia_under_100_million':
+                            document.getElementById('minPrice').value = '0';
+                            document.getElementById('maxPrice').value = '100';
+                            break;
+                        case 'gia_over_100_million':
+                            document.getElementById('minPrice').value = '100';
+                            document.getElementById('maxPrice').value = '';
+                            break;
+                        case 'gia_all_prices':
+                            document.getElementById('minPrice').value = '';
+                            document.getElementById('maxPrice').value = '';
+                            break;
+                    }
+                    document.getElementById('post_value_2').textContent = selected.parentElement.querySelector('label').textContent;
+                    console.log("Đã chọn giá:", selected.value);
+                }
+                document.querySelector('.kind_mini_2').classList.add('hidden');
+            }
+
+            // Xử lý diện tích
+            document.getElementById('sub_kind_mini_3').onclick = function() {
+                const selected = document.querySelector('input[name="dien_tich_acreage"]:checked');
+                if(selected) {
+                    switch(selected.value) {
+                        case 'dien_tich_under_100_sqm':
+                            document.getElementById('minArea').value = '0';
+                            document.getElementById('maxArea').value = '100';
+                            break;
+                        case 'dien_tich_over_100_sqm':
+                            document.getElementById('minArea').value = '100';
+                            document.getElementById('maxArea').value = '';
+                            break;
+                        case 'dien_tich_all_acreage':
+                            document.getElementById('minArea').value = '';
+                            document.getElementById('maxArea').value = '';
+                            break;
+                    }
+                    document.getElementById('post_value_3').textContent = selected.parentElement.querySelector('label').textContent;
+                    console.log("Đã chọn diện tích:", selected.value);
+                }
+                document.querySelector('.kind_mini_3').classList.add('hidden');
+            }
+
+            // Xử lý số phòng ngủ
+            document.getElementById('sub_kind_mini_4').onclick = function() {
+                const selected = document.querySelector('input[name="number_of_rooms"]:checked');
+                if(selected) {
+                    document.getElementById('bedroomCount').value = selected.value;
+                    document.getElementById('post_value_4').textContent = selected.parentElement.querySelector('label').textContent;
+                    console.log("Đã chọn số phòng ngủ:", selected.value);
+                }
+                document.querySelector('.kind_mini_4').classList.add('hidden');
+            }
+
+            // Xử lý hướng nhà
+            document.getElementById('sub_kind_mini_5').onclick = function() {
+                const selected = document.querySelector('input[name="direction"]:checked');
+                if(selected) {
+                    document.getElementById('direction').value = selected.value;
+                    document.getElementById('post_value_5').textContent = selected.parentElement.querySelector('label').textContent;
+                    console.log("Đã chọn hướng nhà:", selected.value);
+                }
+                document.querySelector('.kind_mini_5').classList.add('hidden');
+            }
+
+            // Xử lý nút tìm kiếm
+            document.getElementById('button_search_ban').onclick = function(e) {
+                e.preventDefault();
+
+                // Log tất cả giá trị trước khi submit
+                const formData = {
+                    city: document.getElementById('city').value,
+                    propertyType: document.getElementById('propertyType').value,
+                    minPrice: document.getElementById('minPrice').value,
+                    maxPrice: document.getElementById('maxPrice').value,
+                    minArea: document.getElementById('minArea').value,
+                    maxArea: document.getElementById('maxArea').value,
+                    bedroomCount: document.getElementById('bedroomCount').value,
+                    direction: document.getElementById('direction').value
+                };
+
+                console.log("Form data trước khi submit:", formData);
+
+                // Submit form nếu có city
+                if(document.getElementById('city').value) {
+                    document.querySelector('form').submit();
+                } else {
+                    alert('Vui lòng chọn tỉnh/thành phố');
+                }
+            }
+        </script>
     </div>
 </body>
 </html>

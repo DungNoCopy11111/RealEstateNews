@@ -42,6 +42,9 @@
     <link rel="stylesheet" th:href="@{/web/assets/css/nha_dat_ban.css}">
     <link rel="stylesheet" th:href="@{/web/assets/css/nha_dat_thue.css}">
     <link rel="stylesheet" th:href="@{/web/assets/css/post.css}">
+    <link rel="stylesheet" th:href="@{/web/assets/css/phan_tich.css}">
+    <link rel="stylesheet" th:href="@{/web/assets/css/property.css}">
+
 
     <!-- Favicon -->
     <link rel="icon" th:href="@{/web/assets/img/favicon.png}">
@@ -65,14 +68,14 @@
 
 <!-- Footer -->
 
-<!-- External JS -->
+<!-- 1. Core Libraries -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.8/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
 
-<!-- Local JS -->
+<!-- 2. Local jQuery Plugins -->
 <script th:src="@{/web/assets/js/jquery-ui.min.js}"></script>
 <script th:src="@{/web/assets/js/bootstrap-datepicker.js}"></script>
 <script th:src="@{/web/assets/js/jquery.nav.js}"></script>
@@ -87,17 +90,21 @@
 <script th:src="@{/web/assets/js/jquery.counterup.min.js}"></script>
 <script th:src="@{/web/assets/js/steller.js}"></script>
 <script th:src="@{/web/assets/js/colors.js}"></script>
+
+<!-- 3. Main JS -->
 <script th:src="@{/web/assets/js/main.js}"></script>
 <script th:src="@{/web/assets/js/main_content.js}"></script>
+
+<!-- 4. Feature Scripts -->
 <script type="text/javascript" th:src="@{/web/assets/js/post.js}"></script>
 <script type="text/javascript" th:src="@{/web/assets/js/nha_dat_ban.js}"></script>
 <script type="text/javascript" th:src="@{/web/assets/js/nha_dat_thue.js}"></script>
+<script type="text/javascript" th:src="@{/web/assets/js/property.js}"></script>
 <script type="text/javascript" th:src="@{/web/assets/js/menu.js}"></script>
 
-
+<!-- 5. Initialization Script -->
 <script th:inline="javascript">
     document.addEventListener('DOMContentLoaded', function() {
-        // Đảm bảo jQuery đã được load
         if (typeof jQuery !== 'undefined') {
             try {
                 // Xử lý hình ảnh
@@ -106,7 +113,7 @@
                     images.forEach(function(img) {
                         if (img) {
                             img.onerror = function() {
-                                this.src = '[[@{/web/assets/img/test1.jpg}]]';
+                                this.src = /*[[@{/web/assets/img/test1.jpg}]]*/ '';
                             }
                             const src = img.getAttribute('src');
                             if(src) {
@@ -139,10 +146,11 @@
             }
         }
     });
+</script>
 
-    // Thêm event listener cho window load
+<!-- 6. Footer Adjustment Script -->
+<script th:inline="javascript">
     window.addEventListener('load', function() {
-        // Đảm bảo footer luôn ở dưới cùng
         function adjustFooter() {
             const wrapper = document.getElementById('wrapper');
             const footer = document.querySelector('footer');
@@ -152,57 +160,14 @@
                 wrapper.style.minHeight = (windowHeight - footerHeight) + 'px';
             }
         }
-
         adjustFooter();
         window.addEventListener('resize', adjustFooter);
     });
 </script>
-<!-- Script để xử lý ảnh -->
-<script th:inline="javascript">
-    console.log('nha_dat_ban.js loaded');
-    document.addEventListener('DOMContentLoaded', function() {
-        try {
-            const images = document.querySelectorAll('.product_item_image');
-            images.forEach(function(img) {
-                // Xử lý lỗi ảnh
-                img.onerror = function() {
-                    this.src = '[[@{/web/assets/img/test1.jpg}]]';
-                }
 
-                // Thêm timestamp để tránh cache
-                const src = img.getAttribute('src');
-                if(src) {
-                    img.setAttribute('src', src + '?t=' + new Date().getTime());
-                }
-            });
-
-            // Khởi tạo các plugin
-            if($.fn.niceSelect) {
-                $('select').niceSelect();
-            }
-
-            if($.fn.owlCarousel) {
-                $(".owl-carousel").owlCarousel({
-                    items: 1,
-                    loop: true,
-                    margin: 10,
-                    nav: true,
-                    responsive: {
-                        0: { items: 1 },
-                        600: { items: 2 },
-                        1000: { items: 3 }
-                    }
-                });
-            }
-        } catch(error) {
-            console.error('Error initializing components:', error);
-        }
-    });
-</script>
-
-
-<!-- Page-Specific Scripts -->
+<!-- 7. Page-specific Scripts -->
 <th:block layout:fragment="script"></th:block>
+
 
 </body>
 </html>

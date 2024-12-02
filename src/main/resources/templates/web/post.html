@@ -89,6 +89,8 @@
         <div class="post_container">
             <form th:action="@{/post}" th:object="${property}" method="post" enctype="multipart/form-data">
 
+<!--                <input type="hidden" th:field="*{address.id}" id="address.id">-->
+
                 <!-- Thông tin cơ bản -->
                 <input type="hidden" th:field="*{category.id}" value="1"/>
                 <input type="hidden" th:field="*{user.id}" th:value="${user.id}">
@@ -260,7 +262,7 @@
                     <div class="form-group">
                         <div class="images-container" id="imageUpload">
                             <!-- Sửa name từ 'images' thành 'images[]' -->
-                            <input type="file" name="imageFiles" multiple accept="image/*" id="fileInput" style="display: none;">
+                            <input type="file" name="imageFiles" multiple accept="image/jpeg,image/png,image/jpg" id="fileInput" style="display: none;" enctype="multipart/form-data">
                             <p>Bấm để chọn ảnh hoặc kéo thả ảnh vào đây</p>
                             <p class="note">Tối đa 8 ảnh, định dạng: jpg, jpeg, png (tối đa 2MB/ảnh)</p>
                         </div>
@@ -441,7 +443,7 @@
             fileInput.on('change', function(e) {
                 handleFiles(this.files);
             });
-
+            let selectedFiles = new DataTransfer();
             function handleFiles(files) {
                 if (files.length > maxFiles) {
                     alert(`Chỉ được chọn tối đa ${maxFiles} ảnh`);
@@ -449,11 +451,12 @@
                 }
 
                 let invalidFiles = [];
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
 
                 Array.from(files).forEach(file => {
                     // Kiểm tra định dạng file
-                    if (!file.type.match('image.*')) {
-                        invalidFiles.push(`${file.name} không phải là ảnh`);
+                    if (!allowedTypes.includes(file.type)) {
+                        invalidFiles.push(`${file.name} không phải là định dạng được cho phép (jpg, jpeg, png)`);
                         return;
                     }
 
@@ -462,6 +465,9 @@
                         invalidFiles.push(`${file.name} vượt quá 2MB`);
                         return;
                     }
+
+                    // Thêm file vào DataTransfer
+                    selectedFiles.items.add(file);
 
                     // Tạo preview
                     const reader = new FileReader();
@@ -474,7 +480,7 @@
 
                         const img = $('<img>').attr({
                             'src': e.target.result,
-                            'alt': 'Preview'
+                            'alt': file.name
                         }).css({
                             'width': '150px',
                             'height': '150px',
@@ -501,8 +507,8 @@
                         removeBtn.on('click', function(e) {
                             e.preventDefault();
                             preview.remove();
-                            // Cập nhật lại input file
-                            updateFileInput();
+                            // Xóa file khỏi selectedFiles
+                            updateFileInput(file.name);
                         });
 
                         preview.append(img).append(removeBtn);
@@ -515,29 +521,25 @@
                 if (invalidFiles.length > 0) {
                     alert(invalidFiles.join('\n'));
                 }
+                fileInput[0].files = selectedFiles.files;
             }
 
             function updateFileInput() {
                 // Tạo một DataTransfer mới
-                const dataTransfer = new DataTransfer();
+                const newDataTransfer = new DataTransfer();
 
-                // Lấy các file từ input hiện tại
-                const files = fileInput[0].files;
-
-                // Thêm lại các file vào DataTransfer, trừ file đã xóa
-                Array.from(files).forEach(file => {
-                    // Kiểm tra xem preview của file còn tồn tại không
-                    const fileName = file.name;
-                    const fileStillExists = $('.preview-item').toArray()
-                        .some(item => item.querySelector('img').alt === fileName);
-
-                    if (fileStillExists) {
-                        dataTransfer.items.add(file);
+                // Thêm lại tất cả các file trừ file cần xóa
+                Array.from(selectedFiles.files).forEach(file => {
+                    if (file.name !== fileNameToRemove) {
+                        newDataTransfer.items.add(file);
                     }
                 });
 
-                // Gán lại files cho input
-                fileInput[0].files = dataTransfer.files;
+                // Cập nhật selectedFiles và input
+                selectedFiles = newDataTransfer;
+                fileInput[0].files = selectedFiles.files;
+
+                console.log('Updated files:', fileInput[0].files);
             }
 
             // CSS cho khu vực upload

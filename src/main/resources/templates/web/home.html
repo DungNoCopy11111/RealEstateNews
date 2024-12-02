@@ -31,6 +31,7 @@
                                 <input id="true_province_" class="input_en" type="text" placeholder="Chọn tỉnh thành"/>
                                 <button type="submit" id="button_search" class="button_search">Search</button>
                             </div>
+
                             <div class="show_all_">
                                 <div class="show_all active" id="menu">
                                     <div class="_first">
@@ -308,7 +309,19 @@
                     <span class="see_more"><a href="#">Xem thêm</a><i class="fa-solid fa-arrow-right"></i></span>
                     <div class="high_rating_owl owl-carousel owl-theme" th:if="${!latestProperties.isEmpty()}">
                         <div class="product_item item" th:each="property : ${latestProperties}">
-                            <img class="product_item_image" th:src="@{/web/assets/img/test1.jpg}" alt="Ảnh nhà đất">
+
+                            <img class="product_item_image"
+                                 th:if="${not #lists.isEmpty(property.images)}"
+                                 th:src="@{${property.images[0].webPath}(v=${#dates.createNow().time})}"
+                                 th:alt="${property.title}"
+                                 style="width: 300px; height: 200px; object-fit: cover;">
+
+                            <!-- Ảnh mặc định -->
+                            <img class="product_item_image"
+                                 th:unless="${not #lists.isEmpty(property.images)}"
+                                 th:src="@{/web/assets/img/test1.jpg}"
+                                 th:alt="${property.title}"
+                                 style="width: 300px; height: 200px; object-fit: cover;">
                             <div class="product_item_info">
                                 <a class="product_item_title" th:text="${property.title}">Bán nhà Hà Nội</a>
                                 <div class="price_area">
@@ -341,7 +354,10 @@
                         <div class="hot_new_left col-lg-6">
                             <div class="post">
                                 <div class="image">
-                                    <a><img th:src="@{/web/assets/img/test1.jpg}"></a>
+                                    <a>
+                                        <img th:src="@{/web/assets/img/test1.jpg}"
+                                             style="width: 100%; height: 300px; object-fit: cover;">
+                                    </a>
                                 </div>
                                 <h5><a th:text="${latestProperties[1].title}">Mẫu nhà ống 2 tầng kết nối nắng và gió</a></h5>
                                 <p th:text="${latestProperties[1].description}">Mẫu nhà ống 2 tầng kết nối nắng và gió toạ lạc tại Cẩm Lệ, Đà Nẵng dưới đây chắc chắn sẽ làm bạn yêu thích. Đặc biệt hơn, chi phí hoàn...</p>
@@ -349,7 +365,18 @@
                         </div>
                         <div class="hot_new_right col-lg-6" th:if="${!latestProperties.isEmpty()}">
                             <div class="float_post" th:each="property,iterStat : ${latestProperties}" th:if="${iterStat.index < 5}">
-                                <div class="image"><a><img th:src="@{/web/assets/img/test1.jpg}"></a></div>
+                                <img class="product_item_image"
+                                     th:if="${not #lists.isEmpty(property.images)}"
+                                     th:src="@{${property.images[0].webPath}(v=${#dates.createNow().time})}"
+                                     th:alt="${property.title}"
+                                     style="width: 100%; height: 200px; object-fit: cover;">
+
+                                <!-- Ảnh mặc định -->
+                                <img class="product_item_image"
+                                     th:unless="${not #lists.isEmpty(property.images)}"
+                                     th:src="@{/web/assets/img/test1.jpg}"
+                                     th:alt="${property.title}"
+                                     style="width: 100%; height: 200px; object-fit: cover;">
                                 <div>
                                     <h6><a th:text="${property.title}">Mẫu nhà ống 2 tầng kết nối nắng và gió</a></h6>
                                     <p th:text="${property.description}">Mẫu nhà ống 2 tầng kết nối nắng và gió tọa lạc tại...</p>

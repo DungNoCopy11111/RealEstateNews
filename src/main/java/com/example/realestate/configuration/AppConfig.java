@@ -51,13 +51,6 @@ public class AppConfig {
                         .allowCredentials(false)
                         .maxAge(3600);
             }
-            @Override
-            public void addResourceHandlers(ResourceHandlerRegistry registry) {
-                registry.addResourceHandler("/admin/**")
-                        .addResourceLocations("classpath:/static/admin/");
-                registry.addResourceHandler("/web/**")
-                        .addResourceLocations("classpath:/static/web/");
-            }
         };
 
     }
@@ -65,7 +58,7 @@ public class AppConfig {
     public SecurityFilterChain configure(@NonNull HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/admin/**","/web/**").permitAll()
+                        .requestMatchers("/admin/**","/web/**","/static/**").permitAll()
                         .requestMatchers("/property/search/").permitAll()
                         .requestMatchers("/login","/home", "/register", "/public/**").permitAll()
                         .requestMatchers("/address/**").permitAll()

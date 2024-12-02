@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{web/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Thông tin bất động sản</title>
+</head>
+<body>
+<div layout:fragment="contentA">
+    <div class="container_">
+        <div class="container_1">
+            <div class="main-image-container">
+                <button class="nav-button prev" id="prev_button" name="prevButton">‹</button>
+                <button class="nav-button next" id="next_button" name="nextButton">›</button>
+                <img th:src="${!#lists.isEmpty(property.images)} ? ${property.images[0].webPath} : '/web/assets/img/default.jpg'"
+                     alt="Property main view"
+                     class="main-image"
+                     id="main_image"
+                     data-current-index="0">
+                <div class="image-counter" id="image_counter">1</div>
+            </div>
+
+            <div class="thumbnail-container" id="thumbnail_container">
+                <img th:each="image, iterStat : ${property.images}"
+                     th:src="${image.webPath}"
+                     th:alt="|Thumbnail ${iterStat.count}|"
+                     class="thumbnail"
+                     th:data-index="${iterStat.index}"
+                     th:id="|thumbnail_${iterStat.count}|">
+            </div>
+
+            <h1 class="property-title" id="property_title" name="propertyTitle" th:text="${property.title}">Căn hộ cao cấp Example Park - Tòa A1-A2 - Chiết khấu đến 10%</h1>
+
+            <div class="property-address" id="property_address" name="propertyAddress" th:text="${property.address}">
+                Dự án Example Park, Đường Example, Phường Example, Quận 2, Hồ Chí Minh
+            </div>
+
+            <div class="property-details" id="property_details" name="propertyDetails">
+                <div class="detail-item">
+                    <label for="property_price" class="detail-label">Mức giá</label>
+                    <span class="detail-value" id="property_price" name="propertyPrice" th:text="${property.price + ' tỷ'}">6.38 tỷ</span>
+                </div>
+                <div class="detail-item">
+                    <label for="property_area" class="detail-label">Diện tích</label>
+                    <span class="detail-value" id="property_area" name="propertyArea" th:text="${property.area + ' m²'}">55 m²</span>
+                </div>
+                <div class="detail-item">
+                    <label for="property_bedrooms" class="detail-label">Phòng ngủ</label>
+                    <span class="detail-value" id="property_bedrooms" name="propertyBedrooms" th:text="${property.bedroomCount + ' PN'}">1 PN</span>
+                </div>
+            </div>
+
+            <div class="map-view" id="map_view" name="mapView">
+                <h2 id="map_title" name="mapTitle">Xem trên bản đồ</h2>
+                <div class="map-container">
+                    <iframe
+                            id="property_map"
+                            name="propertyMap"
+                            th:src="@{'https://www.google.com/maps?q=' + ${#uris.escapeQueryParam(property.address)} + '&output=embed'}"
+                            width="600"
+                            height="450"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+        <div class="container_2" id="container_2" name="container2">
+            <div class="contact-card" id="contact_card" name="contactCard">
+                <div class="agent-info" id="agent_info" name="agentInfo">
+                    <img th:src="@{/web/assets/img/user.jpg}" alt="Agent avatar" class="agent-avatar" id="agent_avatar" name="agentAvatar">
+                    <div>
+                        <h3 id="agent_title" name="agentTitle">Môi giới chuyên nghiệp</h3>
+                        <p id="agent_name" name="agentName">Example Agent</p>
+                    </div>
+                </div>
+                <button
+                        class="button primary-button"
+                        id="show_phone_button"
+                        name="showPhoneButton" th:text="|Phone : ${property.userPhone}|">
+                    Hiển số: 0976 XXX XXX
+                </button>
+                <button
+                        class="button secondary-button"
+                        id="chat_zalo_button"
+                        name="chatZaloButton">
+                    Chat qua Zalo
+                </button>
+                <button
+                        class="button secondary-button"
+                        id="send_email_button"
+                        name="sendEmailButton">
+                    Gửi email
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

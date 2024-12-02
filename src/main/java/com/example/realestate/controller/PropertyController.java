@@ -4,6 +4,7 @@ import com.example.realestate.dtos.dto.PropertySearchDTO;
 import com.example.realestate.enums.PropertyType;
 import com.example.realestate.model.Property;
 import com.example.realestate.service.PropertyService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +32,11 @@ public class PropertyController {
     }
 
     @PostMapping("/search")
-    public String searchProperties(@ModelAttribute("searchForm") PropertySearchDTO searchForm, Model model) {
+    public String searchProperties(@ModelAttribute("searchForm") PropertySearchDTO searchForm, Model model,
+                                   HttpServletRequest request
+    ) {
         // In log để debug
+        log.debug("Received search form: {}", searchForm);
         log.info("Search with: city={}, type={}", searchForm.getCity(), searchForm.getPropertyType());
         List<Property> properties = propertyService.searchProperties(
                 searchForm.getCity(),
@@ -40,18 +44,34 @@ public class PropertyController {
                 searchForm.getMinPrice(),
                 searchForm.getMaxPrice(),
                 searchForm.getMinArea(),
-                searchForm.getMaxArea()
+                searchForm.getMaxArea(),
+                searchForm.getDirection(),
+                searchForm.getBedroomCount()
         );
         model.addAttribute("layout", "web/home");
         model.addAttribute("searchForm", searchForm);
         model.addAttribute("propertyTypes", PropertyType.values());
-        model.addAttribute("properties", properties);
+
+        String referer = request.getHeader("Referer");
         if (properties == null) {
             properties = new ArrayList<>(); // Khởi tạo danh sách rỗng nếu null
+        }
+
+        if (referer != null) {
+            if (referer.contains("/nha-dat-ban")) {
+                log.debug("Returning nha-dat-ban view with {} properties", properties.size());
+                model.addAttribute("saleproperties", properties);
+                return "web/nhadatban";
+            } else if (referer.contains("/nha-dat-thue")) {
+                log.debug("Returning nha-dat-thue view with {} properties", properties.size());
+                model.addAttribute("rentproperties", properties);  // Đặt tên khác cho nhà đất thuê
+                return "web/nhadatthue";
+            }
         }
         if (properties.isEmpty()) {
             model.addAttribute("message", "Không tìm thấy bất động sản phù hợp");
         }
+        model.addAttribute("properties", properties);
         return "web/index";
     }
 }

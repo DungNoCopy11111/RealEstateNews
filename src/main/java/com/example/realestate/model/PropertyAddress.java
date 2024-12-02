@@ -3,6 +3,7 @@ package com.example.realestate.model;
 import com.example.realestate.enums.City;
 import com.example.realestate.enums.District;
 import com.example.realestate.enums.Ward;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,7 +14,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PropertyAddress extends Base {
+public class PropertyAddress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,6 +38,7 @@ public class PropertyAddress extends Base {
     private City city;
 
     @OneToOne(mappedBy = "address")
+    @JsonIgnore
     private Property property;
 
     @Override
