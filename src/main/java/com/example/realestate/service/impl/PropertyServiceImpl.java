@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -49,6 +50,7 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Property getPropertyById(Long id) {
         return propertyRepository.findById(id).orElse(null);
     }
@@ -168,6 +170,44 @@ public class PropertyServiceImpl implements PropertyService {
         }
 
     }
+
+    @Override
+    public void deleteProperty(Long id) {
+        propertyRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Property> getPropertyByUserId(Long userId) {
+        return propertyRepository.findByUser_Id(userId);
+    }
+
+    @Override
+    public void update(Property property) {
+        Property existingProperty = propertyRepository.findById(property.getId())
+                .orElseThrow(() -> new RuntimeException("Property not found"));
+
+        // Cập nhật các trường
+        existingProperty.setTitle(property.getTitle());
+        existingProperty.setDescription(property.getDescription());
+        existingProperty.setPrice(property.getPrice());
+        existingProperty.setArea(property.getArea());
+        existingProperty.setPropertyType(property.getPropertyType());
+        existingProperty.setDirection(property.getDirection());
+        existingProperty.setCity(property.getCity());
+        existingProperty.setDistrict(property.getDistrict());
+        existingProperty.setWard(property.getWard());
+        existingProperty.setBathroomCount(property.getBedroomCount());
+        existingProperty.setBedroomCount(property.getBedroomCount());
+        existingProperty.setFloorCount(property.getFloorCount());
+
+        propertyRepository.save(existingProperty);
+    }
+
+    @Override
+    public void deletePropertyById(Long id) {
+        propertyRepository.deleteById(id);
+    }
+
     public String getTimeAgo(LocalDateTime createdDate) {
         if (createdDate == null) return "";
 

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{web/base}">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý tin đăng</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            font-size: 14px;  /* Giảm font size */
+        }
+
+        th, td {
+            padding: 10px;   /* Giảm padding */
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .thumbnail {
+            width: 60px;     /* Giảm kích thước ảnh */
+            height: 60px;
+            object-fit: cover;
+            margin-right: 10px;  /* Giảm margin */
+        }
+
+        .title-cell {
+            display: flex;
+            align-items: center;
+        }
+
+        .datetime {
+            text-align: center;
+            font-size: 13px;  /* Giảm font size ngày giờ */
+        }
+
+        .btn-sua {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 6px 12px;  /* Giảm padding button */
+            border-radius: 3px;  /* Giảm border radius */
+            cursor: pointer;
+            margin-right: 6px;
+            font-size: 13px;   /* Giảm font size button */
+        }
+
+        .btn-xoa {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+<div layout:fragment="contentA">
+    <table>
+        <thead>
+        <h4 style="font-size: 1.2rem; font-weight: 500; color: #333; margin: 20px 0;">Danh sách tin đăng</h4>
+        <tr>
+            <th>Mã tin</th>
+            <th>Trạng thái</th>
+            <th>Tiêu đề</th>
+            <th>Ngày cập nhật</th>
+            <th>Hành động</th>
+        </tr>
+        </thead>
+        <tbody th:each="property : ${propertybyuser}">
+        <tr>
+            <td th:text="${property.id}">1</td>
+            <td>
+                <span th:if="${property.status == 1}">Tin đã đăng</span>
+                <span th:if="${property.status == 0}">Tin chưa đăng</span>
+            </td>
+            <td>
+                <div class="title-cell">
+                    <span th:text="${property.title}">Cơ hội sở hữu đất giá 30 tỷ VND tại Đống Đa, Hà Nội</span>
+                </div>
+            </td>
+            <td th:text="${#temporals.format(property.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+            <td>
+                <a th:href="@{/property/property-user/{id}(id=${property.id})}" class="btn btn-primary">Sửa tin</a>
+                <button th:onclick="'deleteProperty(' + ${property.id} + ')'" class="btn btn-danger">Xóa</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        function deleteProperty(id) {
+            if(confirm("Bạn có chắc muốn xóa tin này?")) {
+                fetch(`/property/delete/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .then(response => {
+                        if(response.ok) {
+                            window.location.reload();
+                        }
+                    });
+            }
+        }
+    </script>
+</th:block>
+</html>

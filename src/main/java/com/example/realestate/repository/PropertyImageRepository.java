@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface PropertyImageRepository extends JpaRepository<PropertyImage, Long> {
     List<PropertyImage> findByPropertyId(Long propertyId);
+    void deleteAllByPropertyId(Long propertyId);
 }

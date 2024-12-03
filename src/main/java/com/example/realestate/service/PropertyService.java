@@ -22,4 +22,8 @@ public interface PropertyService {
     List<Property> searchProperties(String city, PropertyType propertyType, Double minPrice, Double maxPrice, Double minArea, Double maxArea, PropertyDirection direction,Long bedroomCount);
     Property saveProperty(Property property, List<MultipartFile> imageFiles) throws IOException;
     List<Property> getLatesProperties(int limit);
+    void deleteProperty(Long id);
+    List<Property> getPropertyByUserId(Long userId);
+    void update(Property property);
+    void deletePropertyById(Long id);
 }

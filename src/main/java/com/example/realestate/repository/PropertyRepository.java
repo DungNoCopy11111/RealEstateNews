@@ -24,10 +24,6 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
     List<Property> findRentProperties();
 
 
-
-    @Query("SELECT COUNT(p) FROM Property p WHERE p.user.id = :userId")
-    Long countByUserId(@Param("userId") Long userId);
-
     @Query("SELECT p FROM Property p WHERE " +
             "(:city is null or p.city = :city) AND " +
             "(:propertyType is null or p.propertyType = :propertyType) AND " +
@@ -48,9 +44,8 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
             @Param("bedroomCount") Long bedroomCount
     );
 
-    @Query("SELECT p FROM Property p WHERE p.status = 1 ORDER BY p.createdAt DESC")
-    List<Property> findAllActivePropertiesOrderByCreatedDateDesc(Pageable pageable);
-
     List<Property> findByStatusOrderByCreatedAtDesc(Long status, Pageable pageable);
+
+    List<Property> findByUser_Id(Long userId);
 
 }

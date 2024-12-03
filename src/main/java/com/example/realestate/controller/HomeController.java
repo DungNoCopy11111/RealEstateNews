@@ -90,6 +90,18 @@ public class HomeController {
         return "web/phantich";
     }
 
+    @GetMapping("/quan-ly")
+    public String showQuanly(Model model,@ModelAttribute("user") User user){
+
+        if (user != null) {
+            model.addAttribute("propertybyuser", propertyService.getPropertyByUserId(user.getId()));
+            List<Property> property = propertyService.getPropertyByUserId(user.getId());
+            log.info("propertybyuser");
+            return "web/quanly";
+        }
+        return "redirect:/login";
+    }
+
     @GetMapping("/info-property/{id}")
     public String showInfoProperty(Model model,@PathVariable Long id){
         try {

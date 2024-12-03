@@ -38,7 +38,6 @@ public class PropertyAddress {
     private City city;
 
     @OneToOne(mappedBy = "address")
-    @JsonIgnore
     private Property property;
 
     @Override

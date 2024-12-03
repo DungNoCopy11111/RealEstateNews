@@ -71,7 +71,8 @@
                                            style="padding: 0; background-color: white; border: none;">
                                             <i class="bi bi-check-lg" style="font-size: 1.5rem; color: green;"></i>
                                         </a>
-                                        <a th:href="@{/property/reject/{id}(id=${property.id})}"
+                                        <a href="javascript:void(0)"
+                                           th:onclick="'deleteProperty(\'' + ${property.id} + '\')'"
                                            title="Từ chối"
                                            class="btn btn-primary"
                                            style="padding: 0; background-color: white; border: none;">
@@ -224,72 +225,160 @@
 
         // Property details function
         function loadPropertyDetails(propertyId) {
+            console.log('Loading property details for ID:', propertyId);
+
             fetch(`/admin/property/${propertyId}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.querySelector('#propertyModal .modal-title').textContent = data.title;
-
-                    const basicInfo = document.querySelector('#propertyModal .basic-info');
-                    basicInfo.querySelector('.price').textContent = data.price + ' $';
-                    basicInfo.querySelector('.area').textContent = data.area + ' m²';
-                    basicInfo.querySelector('.location').textContent = data.location;
-
-                    document.querySelector('#propertyModal .description').textContent = data.description;
-
-                    // Cập nhật thông tin liên hệ
-                    const contactInfo = document.querySelector('#propertyModal .contact-info');
-                    contactInfo.querySelector('.contact-name').textContent = data.userPost || 'N/A';
-                    contactInfo.querySelector('.contact-phone').textContent = data.userPhone || 'N/A';
-                    contactInfo.querySelector('.contact-email').textContent = data.userEmail || 'N/A';
-
-
-                    // Cập nhật tiện ích
-                    const amenities = data.amenities || [];
-                    if (Array.isArray(amenities) && amenities.length > 0) {
-                        amenities.forEach(amenity => {
-                            const li = document.createElement('li');
-                            li.className = 'list-group-item';
-                            li.textContent = amenity;
-                            amenitiesList.appendChild(li);
-                        });
-                    } else {
-                        const li = document.createElement('li');
-                        li.className = 'list-group-item';
-                        li.textContent = 'Không có tiện ích';
-                        amenitiesList.appendChild(li);
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    console.log('Response ok:', response.ok);
+                    console.log('Full response:', response);
+                    if (!response.ok) {
+                        console.log("Error response")
+                        throw new Error(`HTTP error! status: ${response.status}`);
                     }
-
-                    // Cập nhật gallery ảnh
-                    const carouselInner = document.querySelector('#propertyGallery .carousel-inner');
-                    carouselInner.innerHTML = '';
-                    data.images.forEach((image, index) => {
-                        const div = document.createElement('div');
-                        div.className = `carousel-item ${index === 0 ? 'active' : ''}`;
-                        div.innerHTML = `<img src="${image}" class="d-block w-100" alt="Property Image ${index + 1}">`;
-                        carouselInner.appendChild(div);
-                    });
-
-                    // Cập nhật thumbnails
-                    const thumbnailContainer = document.querySelector('#propertyGallery .d-flex');
-                    thumbnailContainer.innerHTML = '';
-                    data.images.forEach((image, index) => {
-                        const img = document.createElement('img');
-                        img.src = image;
-                        img.className = 'img-thumbnail';
-                        img.style = 'width: 100px; cursor: pointer;';
-                        img.onclick = () => switchImage(index);
-                        thumbnailContainer.appendChild(img);
-                    });
+                    return response.json();
                 })
-                .catch(error => console.error('Error loading property details:', error));
+                .then(data => {
+                    console.log('Received data:', data);
+
+                    try {
+                        // Cập nhật tiêu đề modal
+                        document.querySelector('#propertyModal .modal-title').textContent =
+                            data.title || 'Không có tiêu đề';
+
+                        // Cập nhật thông tin cơ bản
+                        const basicInfo = document.querySelector('#propertyModal .basic-info');
+                        if (basicInfo) {
+                            // Giá
+                            const priceElement = basicInfo.querySelector('.price');
+                            if (priceElement) {
+                                priceElement.textContent = data.price ? `${data.price} $` : 'Đang cập nhật';
+                            }
+
+                            // Diện tích
+                            const areaElement = basicInfo.querySelector('.area');
+                            if (areaElement) {
+                                areaElement.textContent = data.area ? `${data.area} m²` : 'N/A';
+                            }
+
+                            // Địa chỉ
+                            const locationElement = basicInfo.querySelector('.location');
+                            if (locationElement) {
+                                let address = '';
+                                if (data.address) address += data.address;
+                                if (data.ward) {
+                                    if (address) address += ', ';
+                                    address += data.ward;
+                                }
+                                if (data.district) {
+                                    if (address) address += ', ';
+                                    address += data.district;
+                                }
+                                if (data.city) {
+                                    if (address) address += ', ';
+                                    address += data.city;
+                                }
+                                locationElement.textContent = address || 'Đang cập nhật';
+                            }
+                        }
+
+                        // Cập nhật mô tả
+                        const descriptionElement = document.querySelector('#propertyModal .description');
+                        if (descriptionElement) {
+                            descriptionElement.textContent = data.description || 'Chưa có mô tả';
+                        }
+
+                        // Cập nhật thông tin bổ sung
+                        const amenitiesList = document.querySelector('#propertyModal .amenities-list');
+                        if (amenitiesList) {
+                            amenitiesList.innerHTML = '';
+
+                            const amenities = [];
+                            if (data.bedroomCount) amenities.push(`Phòng ngủ: ${data.bedroomCount}`);
+                            if (data.bathroomCount) amenities.push(`Phòng tắm: ${data.bathroomCount}`);
+                            if (data.direction) amenities.push(`Hướng nhà: ${data.direction}`);
+                            if (data.floorCount) amenities.push(`Số tầng: ${data.floorCount}`);
+                            if (data.yearBuilt) amenities.push(`Năm xây dựng: ${data.yearBuilt}`);
+                            if (data.propertyType) amenities.push(`Loại BĐS: ${data.propertyType}`);
+                            if (data.legalDocuments) amenities.push(`Giấy tờ pháp lý: ${data.legalDocuments}`);
+
+                            if (amenities.length > 0) {
+                                amenities.forEach(amenity => {
+                                    const li = document.createElement('li');
+                                    li.className = 'list-group-item';
+                                    li.textContent = amenity;
+                                    amenitiesList.appendChild(li);
+                                });
+                            } else {
+                                const li = document.createElement('li');
+                                li.className = 'list-group-item';
+                                li.textContent = 'Không có thông tin';
+                                amenitiesList.appendChild(li);
+                            }
+                        }
+
+                        // Cập nhật thông tin liên hệ
+                        const contactInfo = document.querySelector('#propertyModal .contact-info');
+                        if (contactInfo) {
+                            contactInfo.querySelector('.contact-name').textContent = data.userPost || 'N/A';
+                            contactInfo.querySelector('.contact-phone').textContent = data.userPhone || 'N/A';
+                            contactInfo.querySelector('.contact-email').textContent = data.userEmail || 'N/A';
+                        }
+                    } catch (error) {
+                        console.error('Error updating modal:', error);
+                        throw error;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: 'Không thể tải thông tin bất động sản',
+                        icon: 'error'
+                    });
+                });
         }
 
-        // Hàm chuyển đổi ảnh trong carousel
-        function switchImage(index) {
-            const carousel = document.querySelector('#propertyGallery');
-            const bsCarousel = new bootstrap.Carousel(carousel);
-            bsCarousel.to(index);
+        function deleteProperty(propertyId) {
+            Swal.fire({
+                title: 'Xác nhận xóa',
+                text: "Bạn có chắc chắn muốn xóa tin đăng này?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Đồng ý',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/admin/property/delete/${propertyId}`, {
+                        method: 'DELETE'
+                    })
+                        .then(response => {
+                            if (!response.ok) throw new Error('Lỗi khi xóa');
+                            return response.text();
+                        })
+                        .then(() => {
+                            Swal.fire(
+                                'Đã xóa!',
+                                'Tin đăng đã được xóa thành công.',
+                                'success'
+                            ).then(() => {
+                                window.location.reload();
+                            });
+                        })
+                        .catch(error => {
+                            Swal.fire(
+                                'Lỗi!',
+                                'Có lỗi xảy ra khi xóa tin đăng.',
+                                'error'
+                            );
+                        });
+                }
+            });
         }
+
+        // Helper function for switching carousel images
 
         // Thêm vào phần script của trang
         function approveProperty(propertyId) {

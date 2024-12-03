@@ -11,11 +11,14 @@ import com.example.realestate.service.TransactionService;
 import com.example.realestate.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -115,12 +118,42 @@ public class AdminController {
         return new RedirectView("/admin/list-user");
     }
 
+    @DeleteMapping("/property/delete/{id}")
+    @ResponseBody
+    public ResponseEntity<?> deleteProperty(@PathVariable Long id) {
+        try {
+            propertyService.deleteProperty(id);
+            return ResponseEntity.ok("Xóa thành công");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Lỗi khi xóa: " + e.getMessage());
+        }
+    }
+
+    @Transactional(readOnly = true)
     @GetMapping("/property/{id}")
-    public ResponseEntity<PropertyDTO> getPropertyDetails(@PathVariable Long id){
-        Property property = propertyService.getPropertyById(id);
-        PropertyDTO propertyDTO = propertyConverter.toDTO(property);
-        log.info("get property details");
-        return ResponseEntity.ok(propertyDTO);
+    public ResponseEntity<PropertyDTO> getPropertyDetails(@PathVariable Long id) {
+        try {
+            log.info("Getting property details for ID: {}", id);
+
+            Property property = propertyService.getPropertyById(id);
+            if (property == null) {
+                log.warn("Property not found with ID: {}", id);
+                return ResponseEntity.notFound().build();
+            }
+
+            log.info("Found property: {}", property);
+
+            PropertyDTO propertyDTO = propertyConverter.toDTO(property);
+            log.info("Converted to DTO: {}", propertyDTO);
+
+            return ResponseEntity.ok(propertyDTO);
+
+        } catch (Exception e) {
+            log.error("Error getting property details for ID: " + id, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
+        }
     }
 
     @PostMapping("/approve/{id}")

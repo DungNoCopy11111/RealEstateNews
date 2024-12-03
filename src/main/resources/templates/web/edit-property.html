@@ -87,13 +87,14 @@
             </div>
         </nav>
         <div class="post_container">
-            <form th:action="@{/post}" th:object="${property}" method="post" enctype="multipart/form-data">
+            <form th:action="@{/property/update}" th:object="${property}" method="post" enctype="multipart/form-data">
 
-<!--                <input type="hidden" th:field="*{address.id}" id="address.id">-->
+                <!--                <input type="hidden" th:field="*{address.id}" id="address.id">-->
 
                 <!-- Thông tin cơ bản -->
                 <input type="hidden" th:field="*{category.id}" value="1"/>
                 <input type="hidden" th:field="*{user.id}" th:value="${user.id}">
+                <input type="hidden" th:field="*{id}">
                 <div class="section">
                     <h2 class="section-title">Thông tin cơ bản</h2>
                     <div class="form-group">
@@ -144,7 +145,7 @@
                     <div class="form-group">
                         <label for="address" class="required">Địa chỉ chi tiết</label>
                         <input id="address" type="text" class="form-control" placeholder="Số nhà, tên đường...">
-<!--                        <span class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>-->
+                        <!--                        <span class="error" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>-->
                     </div>
                 </div>
 
@@ -193,21 +194,21 @@
                             <div class="form-group">
                                 <label for="bedroom">Số phòng ngủ</label>
                                 <input id="bedroom" type="number" class="form-control">
-<!--                                <span class="error" th:if="${#fields.hasErrors('bedroom')}" th:errors="*{bedroom}"></span>-->
+                                <!--                                <span class="error" th:if="${#fields.hasErrors('bedroom')}" th:errors="*{bedroom}"></span>-->
                             </div>
                         </div>
                         <div class="post_col">
                             <div class="form-group">
                                 <label for="toilet">Số toilet</label>
                                 <input id="toilet" type="number" class="form-control">
-<!--                                <span class="error" th:if="${#fields.hasErrors('toilet')}" th:errors="*{toilet}"></span>-->
+                                <!--                                <span class="error" th:if="${#fields.hasErrors('toilet')}" th:errors="*{toilet}"></span>-->
                             </div>
                         </div>
                         <div class="post_col">
                             <div class="form-group">
                                 <label for="floor">Số tầng</label>
                                 <input id="floor" type="number" class="form-control">
-<!--                                <span class="error" th:if="${#fields.hasErrors('floor')}" th:errors="*{floor}"></span>-->
+                                <!--                                <span class="error" th:if="${#fields.hasErrors('floor')}" th:errors="*{floor}"></span>-->
                             </div>
                         </div>
                     </div>
@@ -225,52 +226,40 @@
                 </div>
 
                 <!-- Tiện ích -->
-<!--                <div class="section">-->
-<!--                    <h2 class="section-title">Tiện ích</h2>-->
-<!--                    <div class="utilities-grid">-->
-<!--                        <div class="utility-item">-->
-<!--                            <input type="checkbox" th:field="*{utilities}" value="PARKING">-->
-<!--                            <label for="utilities">Chỗ để xe</label>-->
-<!--                        </div>-->
-<!--                        <div class="utility-item">-->
-<!--                            <input type="checkbox" th:field="*{utilities}" value="SECURITY">-->
-<!--                            <label for="utilities">An ninh 24/7</label>-->
-<!--                        </div>-->
-<!--                        <div class="utility-item">-->
-<!--                            <input type="checkbox" th:field="*{utilities}" value="POOL">-->
-<!--                            <label for="utilities">Hồ bơi</label>-->
-<!--                        </div>-->
-<!--                        <div class="utility-item">-->
-<!--                            <input type="checkbox" th:field="*{utilities}" value="GYM">-->
-<!--                            <label for="utilities">Phòng gym</label>-->
-<!--                        </div>-->
-<!--                        <div class="utility-item">-->
-<!--                            <input type="checkbox" th:field="*{utilities}" value="ELEVATOR">-->
-<!--                            <label for="utilities">Thang máy</label>-->
-<!--                        </div>-->
-<!--                        <div class="utility-item">-->
-<!--                            <input type="checkbox" th:field="*{utilities}" value="GARDEN">-->
-<!--                            <label for="utilities">Sân vườn</label>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div class="section">-->
+                <!--                    <h2 class="section-title">Tiện ích</h2>-->
+                <!--                    <div class="utilities-grid">-->
+                <!--                        <div class="utility-item">-->
+                <!--                            <input type="checkbox" th:field="*{utilities}" value="PARKING">-->
+                <!--                            <label for="utilities">Chỗ để xe</label>-->
+                <!--                        </div>-->
+                <!--                        <div class="utility-item">-->
+                <!--                            <input type="checkbox" th:field="*{utilities}" value="SECURITY">-->
+                <!--                            <label for="utilities">An ninh 24/7</label>-->
+                <!--                        </div>-->
+                <!--                        <div class="utility-item">-->
+                <!--                            <input type="checkbox" th:field="*{utilities}" value="POOL">-->
+                <!--                            <label for="utilities">Hồ bơi</label>-->
+                <!--                        </div>-->
+                <!--                        <div class="utility-item">-->
+                <!--                            <input type="checkbox" th:field="*{utilities}" value="GYM">-->
+                <!--                            <label for="utilities">Phòng gym</label>-->
+                <!--                        </div>-->
+                <!--                        <div class="utility-item">-->
+                <!--                            <input type="checkbox" th:field="*{utilities}" value="ELEVATOR">-->
+                <!--                            <label for="utilities">Thang máy</label>-->
+                <!--                        </div>-->
+                <!--                        <div class="utility-item">-->
+                <!--                            <input type="checkbox" th:field="*{utilities}" value="GARDEN">-->
+                <!--                            <label for="utilities">Sân vườn</label>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
                 <!-- Hình ảnh -->
                 <!-- Hình ảnh -->
-                <div class="section">
-                    <h2 class="section-title">Hình ảnh</h2>
-                    <div class="form-group">
-                        <div class="images-container" id="imageUpload">
-                            <!-- Sửa name từ 'images' thành 'images[]' -->
-                            <input type="file" name="imageFiles" multiple accept="image/jpeg,image/png,image/jpg" id="fileInput" style="display: none;" enctype="multipart/form-data">
-                            <p>Bấm để chọn ảnh hoặc kéo thả ảnh vào đây</p>
-                            <p class="note">Tối đa 8 ảnh, định dạng: jpg, jpeg, png (tối đa 2MB/ảnh)</p>
-                        </div>
-                        <div class="image-preview" id="imagePreview"></div>
-                    </div>
-                </div>
 
-                <button type="submit" class="submit-button">Đăng tin</button>
+                <button type="submit" class="submit-button">Sửa tin</button>
             </form>
         </div>
     </div>

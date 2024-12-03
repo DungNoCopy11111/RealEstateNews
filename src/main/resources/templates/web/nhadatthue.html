@@ -354,7 +354,17 @@
                     <div class="property-card" th:each="property,iterStat : ${rentproperties}" th:if="${iterStat.index < 5}">
                         <div class="image-gallery">
                             <div class="gallery-container">
-                                <img th:src="@{/web/assets/img/20241102115121-03fa_wm.jpg}" alt="Property Image" class="gallery-image">
+                                <img  alt="Property Image" class="gallery-image"
+                                      th:if="${not #lists.isEmpty(property.images)}"
+                                      th:src="@{${property.images[0].webPath}(v=${#dates.createNow().time})}"
+                                      th:alt="${property.title}"
+                                >
+
+                                <img  alt="Property Image" class="gallery-image"
+                                      th:unless="${not #lists.isEmpty(property.images)}"
+                                      th:src="@{/web/assets/img/test1.jpg}"
+                                      th:alt="${property.title}"
+                                >
                             </div>
                             <span class="vip-badge">VIP</span>
                             <!-- <span class="image-counter">1/5</span> -->
@@ -365,7 +375,7 @@
                                 <a th:href="@{/info-property/{id}(id=${property.id})}" th:text="${property.title}">Beautiful</a>
                             </h2>
                             <div class="property-stats">
-                                <span class="price" th:text="${property.price + ' tỷ'}">3,6 tỷ</span>
+                                <span class="price" th:text="${property.price + ' triệu'}">3,6 tỷ</span>
                                 <span class="area" th:text="${property.area + ' m²'}">55 m²</span>
                             </div>
 

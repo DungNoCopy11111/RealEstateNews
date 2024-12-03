@@ -1,12 +1,15 @@
 package com.example.realestate.controller;
 
 import com.example.realestate.dtos.dto.PropertySearchDTO;
+import com.example.realestate.enums.PropertyDirection;
 import com.example.realestate.enums.PropertyType;
 import com.example.realestate.model.Property;
+import com.example.realestate.repository.PropertyImageRepository;
 import com.example.realestate.service.PropertyService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -22,6 +25,9 @@ import java.util.List;
 public class PropertyController {
     @Autowired
     private PropertyService propertyService;
+
+    @Autowired
+    private PropertyImageRepository propertyImageRepository;
 
     @PostMapping("/approve/{id}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -73,5 +79,33 @@ public class PropertyController {
         }
         model.addAttribute("properties", properties);
         return "web/index";
+    }
+
+    @GetMapping("/property-user/{id}")
+    public String editProperty(@PathVariable Long id, Model model) {
+        Property property = propertyService.getPropertyById(id);
+        model.addAttribute("propertyTypes", PropertyType.values());
+        model.addAttribute("property", property);
+        model.addAttribute("directions", PropertyDirection.values());
+        return "web/edit-property";
+    }
+
+    @PostMapping("/update")
+    public String updateProperty(@ModelAttribute Property property) {
+        propertyService.update(property);
+        return "redirect:/quan-ly";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @ResponseBody
+    public ResponseEntity<?> deleteProperty(@PathVariable Long id) {
+        try {
+            propertyImageRepository.deleteAllByPropertyId(id);
+            propertyService.deleteProperty(id);
+            return ResponseEntity.ok("Xóa thành công");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Lỗi khi xóa: " + e.getMessage());
+        }
     }
 }
